@@ -12,7 +12,7 @@ import java.io.FileReader;
 
 /**
  *
- * @author alfon
+ * @author alfonseca28
  */
 public class Principal {
 

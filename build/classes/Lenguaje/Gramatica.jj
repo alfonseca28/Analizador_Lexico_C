@@ -15,7 +15,7 @@ public class Gramatica{
 
 PARSER_END(Gramatica)
 
-//Saltos de linea
+//SALTOS DE LINEA
 SKIP :{
      " "
      |"\n"
