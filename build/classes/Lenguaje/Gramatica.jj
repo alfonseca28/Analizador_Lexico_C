@@ -1,0 +1,153 @@
+options{
+
+IGNORE_CASE = true;
+BUILD_PARSER = true;
+STATIC = false;
+}
+
+PARSER_BEGIN(Gramatica)
+
+package Lenguaje;
+
+public class Gramatica{
+
+}
+
+PARSER_END(Gramatica)
+
+//Saltos de linea
+SKIP :{
+     " "
+     |"\n"
+     |"\r"
+     |"\t"
+     |"//"
+}
+
+//Palabras Reservadas: Estructura del programa 
+
+TOKEN: {
+    
+    <LIBRERIA:"#include">{System.out.println("LIBRERIA -> " + image + "\n");}
+    |<MAIN:"main">{System.out.println("MAIN -> " + image + "\n");}
+    |<RETURN:"return">{System.out.println("RETURN -> " + image + "\n");}
+
+
+}
+
+//Palabras Reservadas:  Tipos Variables
+TOKEN: {
+    
+    <INT:"int">{System.out.println("INT -> " + image + "\n");}
+    |<FLOAT:"float">{System.out.println("FLOAT -> " + image + "\n");}
+    |<CHAR:"char">{System.out.println("CHAR -> " + image + "\n");}
+    |<BOOL:"bool">{System.out.println("BOOL -> " + image + "\n");}
+    |<SHORT:"short">{System.out.println("SHORT -> " + image + "\n");}
+    |<STRING:"string">{System.out.println("STRING -> " + image + "\n");}
+    |<DOUBLE:"double">{System.out.println("DOUBLE -> " + image + "\n");}
+    |<VOID:"void">{System.out.println("VOID -> " + image + "\n");}
+
+}
+
+//Palabras Reservadas: operadores Aritmeticos
+TOKEN: {
+    
+    <SUMA:"+">{System.out.println("SUMA -> " + image + "\n");}
+    |<RESTA:"-">{System.out.println("RESTA -> " + image + "\n");}
+    |<MULTIPLICAR:"*">{System.out.println("MULTIPLICAR -> " + image + "\n");}
+    |<ASIGNAR:"=">{System.out.println("ASIGNAR -> " + image + "\n");}
+    |<DIVISION:"/">{System.out.println("DIVISION -> " + image + "\n");}
+    |<MODULO:"%">{System.out.println("MODULO -> " + image + "\n");}
+    |<INCREMENTO:"++">{System.out.println("INCREMENTO -> " + image + "\n");}
+    |<DECREMENTO:"--">{System.out.println("DECREMENTO -> " + image + "\n");}
+  
+}
+
+//Palabras Reservadas: operadores Relacionales
+TOKEN: {
+    
+    <IGUAL:"==">{System.out.println("IGUAL -> " + image + "\n");}
+    |<DIFERENTE:"!=">{System.out.println("DIFERENTE -> " + image + "\n");}
+    |<MENOR:"<">{System.out.println("MENOR -> " + image + "\n");}
+    |<MAYOR:">">{System.out.println("MAYOR -> " + image + "\n");}
+    |<MENORIGUAL:"<=">{System.out.println("MENORIGUAL -> " + image + "\n");}
+    |<MAYORIGUAL:">=">{System.out.println("MAYORIGUAL -> " + image + "\n");}
+
+   
+}
+
+
+//Palabras Reservadas: Operadores Logicos
+TOKEN: {
+    
+    <AMPERSAND:"&">{System.out.println("AMPERSAND -> " + image + "\n");}
+    |<AND:"&&">{System.out.println("AND -> " + image + "\n");}
+    |<OR:"||">{System.out.println("OR -> " + image + "\n");}
+    |<NOT:"!">{System.out.println("NOT -> " + image + "\n");}
+   
+}
+
+//Palabras Reservadas: Estructuras de control
+TOKEN: {
+    
+    <CICLOFOR:"for">{System.out.println("CICLOFOR -> " + image + "\n");}           
+    |<CICLOWHILE:"while">{System.out.println("CICLOWHILE -> " + image + "\n");}          
+    |<CICLODO:"do">{System.out.println("CICLODO -> " + image + "\n");}       
+    |<IF:"if"> {System.out.println("IF -> " + image + "\n");}              
+    |<ELSE:"else">{System.out.println("ELSE -> " + image + "\n");}          
+    |<SWITCH:"switch">{System.out.println("SWITCH -> " + image + "\n");}       
+    |<CASE:"case">{System.out.println("CASE -> " + image + "\n");}             
+    |<BREAK:"break">{System.out.println("BREAK -> " + image + "\n");} 
+   
+
+}
+
+//Palabras Reservadas: Output y input
+TOKEN: {
+    
+    <SCANF:"scanf"> {System.out.println("SCANF -> " + image + "\n");}              
+    |< PRINTF:"printf">{System.out.println("PRINTF -> " + image + "\n");}   
+}
+
+//Palabras Reservadas: Operadores Agrupacion y delimitacion
+TOKEN: {
+    
+    <LLAVEIZQ:"{">{System.out.println("LLAVEIZQ -> " + image + "\n");}
+    |<LLAVEDER:"}">{System.out.println("LLAVEDER -> " + image + "\n");}
+    |<PARENTIZQ:"(">{System.out.println("PARENTIZQ -> " + image + "\n");}
+    |<PARENTDER:")">{System.out.println("PARENTDER -> " + image + "\n");}
+    |<SENTFIN:";">{System.out.println("SENTFIN -> " + image + "\n");}
+    |<CORCHETEIZQ:"[">{System.out.println("CORCHETEIZQ -> " + image + "\n");}
+    |<CORCHETEDER:"]">{System.out.println("CORCHETEDER -> " + image + "\n");}
+    |<COMA:",">{System.out.println("COMA -> " + image + "\n");}
+    |<PUNTO:".">{System.out.println("PUNTO -> " + image + "\n");}
+    |<DOSPUNTO:":">{System.out.println("DOSPUNTO -> " + image + "\n");}
+
+}
+
+//Nombre de las varibles 
+TOKEN: {
+    
+    <NOMBREVAR:(["a"-"z"]|["A"-"Z"])(["a"-"z"]|["0"-"9"]|[","])*>{System.out.println("NOMBREVAR -> " + image + "\n");}
+    
+}
+
+//Cadenas de texto
+TOKEN: {
+    
+   <CADENA:"\""(["a"-"z"]|["A"-"Z"]|["0"-"9"]|["%"]|["&"]|[","]|["."]|[" "])+"\"">{System.out.println("CADENA -> " + image + "\n");}
+}
+
+
+//Numeros
+TOKEN: {
+    
+    <NUMERO:(["0"-"9"])+>{System.out.println("NUMERO -> " + image + "\n");}  
+}
+
+//Nombre de las librerias
+TOKEN: {
+    
+    <NOMLIBRERIA:"<"(["a"-"z"]|["A"-"Z"]|["."])+">">{System.out.println("NOMBRELIBRERIA -> " + image + "\n");}
+    
+}
