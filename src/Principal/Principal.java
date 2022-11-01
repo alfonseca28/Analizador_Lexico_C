@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Principal;
 
 import Lenguaje.*;
@@ -17,7 +12,8 @@ import java.io.FileReader;
 public class Principal {
 
     private static File Prueba_c;
-    //es para ocupar en todo el cuerpo del programa
+    //se declara el metodo como privado para ocuparse en todo el cuerpo del programa, se le pasa de parametro de tipo file para hacer
+    //referencia al archivo de prueba "Prueba_c.txt"
 
     public static void main(String[] args) throws ParseException {
         //el excpecion es para errores
@@ -31,15 +27,15 @@ public class Principal {
             //se instancea, para cargarle los datos de la gramatica, con simplecharstream
             //(es para leer cadenas deca racteres somple, va a leer el archivo de prueba con filereader)
             while ((token = Gramatica_c.getNextToken()).kind != GramaticaTokenManager.EOF) {
-                //este while es para ir comparando todos los tokens declarados en gramatica.jj ya que va a ir de uno en uno, para ellos se usa getNextToken para que asi vaya
-                //analizando de siguiente en siguiente, asi hasta que el objeto GramaticaTokenManager sea != (diferente de EOF), EOF es el final del archivo, una vez que llegue
-                //al final del archivo se detiene el while
+                //este while es para ir comparando todos los tokens declarados en gramatica.jj ya que va a ir de uno en uno, para ellos se
+                //usa getNextToken para que asi vaya analizando de siguiente en siguiente, asi hasta que el objeto GramaticaTokenManager
+                //sea != (diferente de EOF), EOF es el final del archivo, una vez que llegue al final del archivo se detiene el while
             }
-            //la clase tokenmanager es la que javacc genera y que hace que al momento de compilarlo para que este sirva como una especie de traductor entre javacc y java
-            //para entender las instancias que se le van a pasar con los token delcarados en la gramatica
+            //la clase tokenmanager es la que javacc genera y que se genera al momento de compilarlo desde el terminal para que este
+            //sirva como una especie de traductor entre javacc y java asi poder entender las instancias que se le van a pasar con los
+            //token delcarados en la gramatica
         } catch (FileNotFoundException f) {
             System.out.println("No se encuentra el archivo");
         }
-
     }
 }
