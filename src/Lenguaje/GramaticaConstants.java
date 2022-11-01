@@ -11,111 +11,111 @@ public interface GramaticaConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int LIBRERIA = 5;
+  int LIBRERIA = 7;
   /** RegularExpression Id. */
-  int MAIN = 6;
+  int MAIN = 8;
   /** RegularExpression Id. */
-  int RETURN = 7;
+  int RETURN = 9;
   /** RegularExpression Id. */
-  int INT = 8;
+  int INT = 10;
   /** RegularExpression Id. */
-  int FLOAT = 9;
+  int FLOAT = 11;
   /** RegularExpression Id. */
-  int CHAR = 10;
+  int CHAR = 12;
   /** RegularExpression Id. */
-  int BOOL = 11;
+  int BOOL = 13;
   /** RegularExpression Id. */
-  int SHORT = 12;
+  int SHORT = 14;
   /** RegularExpression Id. */
-  int STRING = 13;
+  int STRING = 15;
   /** RegularExpression Id. */
-  int DOUBLE = 14;
+  int DOUBLE = 16;
   /** RegularExpression Id. */
-  int VOID = 15;
+  int VOID = 17;
   /** RegularExpression Id. */
-  int SUMA = 16;
+  int SUMA = 18;
   /** RegularExpression Id. */
-  int RESTA = 17;
+  int RESTA = 19;
   /** RegularExpression Id. */
-  int MULTIPLICAR = 18;
+  int MULTIPLICAR = 20;
   /** RegularExpression Id. */
-  int ASIGNAR = 19;
+  int ASIGNAR = 21;
   /** RegularExpression Id. */
-  int DIVISION = 20;
+  int DIVISION = 22;
   /** RegularExpression Id. */
-  int MODULO = 21;
+  int MODULO = 23;
   /** RegularExpression Id. */
-  int INCREMENTO = 22;
+  int INCREMENTO = 24;
   /** RegularExpression Id. */
-  int DECREMENTO = 23;
+  int DECREMENTO = 25;
   /** RegularExpression Id. */
-  int IGUAL = 24;
+  int IGUAL = 26;
   /** RegularExpression Id. */
-  int DIFERENTE = 25;
+  int DIFERENTE = 27;
   /** RegularExpression Id. */
-  int MENOR = 26;
+  int MENOR = 28;
   /** RegularExpression Id. */
-  int MAYOR = 27;
+  int MAYOR = 29;
   /** RegularExpression Id. */
-  int MENORIGUAL = 28;
+  int MENORIGUAL = 30;
   /** RegularExpression Id. */
-  int MAYORIGUAL = 29;
+  int MAYORIGUAL = 31;
   /** RegularExpression Id. */
-  int AMPERSAND = 30;
+  int AMPERSAND = 32;
   /** RegularExpression Id. */
-  int AND = 31;
+  int AND = 33;
   /** RegularExpression Id. */
-  int OR = 32;
+  int OR = 34;
   /** RegularExpression Id. */
-  int NOT = 33;
+  int NOT = 35;
   /** RegularExpression Id. */
-  int CICLOFOR = 34;
+  int CICLOFOR = 36;
   /** RegularExpression Id. */
-  int CICLOWHILE = 35;
+  int CICLOWHILE = 37;
   /** RegularExpression Id. */
-  int CICLODO = 36;
+  int CICLODO = 38;
   /** RegularExpression Id. */
-  int IF = 37;
+  int IF = 39;
   /** RegularExpression Id. */
-  int ELSE = 38;
+  int ELSE = 40;
   /** RegularExpression Id. */
-  int SWITCH = 39;
+  int SWITCH = 41;
   /** RegularExpression Id. */
-  int CASE = 40;
+  int CASE = 42;
   /** RegularExpression Id. */
-  int BREAK = 41;
+  int BREAK = 43;
   /** RegularExpression Id. */
-  int SCANF = 42;
+  int SCANF = 44;
   /** RegularExpression Id. */
-  int PRINTF = 43;
+  int PRINTF = 45;
   /** RegularExpression Id. */
-  int LLAVEIZQ = 44;
+  int LLAVEIZQ = 46;
   /** RegularExpression Id. */
-  int LLAVEDER = 45;
+  int LLAVEDER = 47;
   /** RegularExpression Id. */
-  int PARENTIZQ = 46;
+  int PARENTIZQ = 48;
   /** RegularExpression Id. */
-  int PARENTDER = 47;
+  int PARENTDER = 49;
   /** RegularExpression Id. */
-  int SENTFIN = 48;
+  int SENTFIN = 50;
   /** RegularExpression Id. */
-  int CORCHETEIZQ = 49;
+  int CORCHETEIZQ = 51;
   /** RegularExpression Id. */
-  int CORCHETEDER = 50;
+  int CORCHETEDER = 52;
   /** RegularExpression Id. */
-  int COMA = 51;
+  int COMA = 53;
   /** RegularExpression Id. */
-  int PUNTO = 52;
+  int PUNTO = 54;
   /** RegularExpression Id. */
-  int DOSPUNTO = 53;
+  int DOSPUNTO = 55;
   /** RegularExpression Id. */
-  int NOMBREVAR = 54;
+  int NOMBREVAR = 56;
   /** RegularExpression Id. */
-  int CADENA = 55;
+  int CADENA = 57;
   /** RegularExpression Id. */
-  int NUMERO = 56;
+  int NUMERO = 58;
   /** RegularExpression Id. */
-  int NOMLIBRERIA = 57;
+  int NOMLIBRERIA = 59;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -127,6 +127,8 @@ public interface GramaticaConstants {
     "\"\\n\"",
     "\"\\r\"",
     "\"\\t\"",
+    "<token of kind 5>",
+    "<token of kind 6>",
     "\"#include\"",
     "\"main\"",
     "\"return\"",

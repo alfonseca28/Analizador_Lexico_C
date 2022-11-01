@@ -1,6 +1,9 @@
 #include <stdio.h>
 main(){
 	int c=1,n1=0,n2=0,n3=0;
+        //esto es un comentario de una sola linea        
+        /*esto es un comentario
+        de 2 o mas lineas*/
 	float s1=0,s2=0,s3=0,n=0,total=0;
 	while (c==1){
 		printf ("De cuanto fue el gasto");

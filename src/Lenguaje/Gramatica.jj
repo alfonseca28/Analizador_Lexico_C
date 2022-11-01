@@ -21,7 +21,8 @@ SKIP :{
      |"\n"
      |"\r"
      |"\t"
-     |"//"
+     | <"//" (~["\n","\r"])* ("\n"|"\r"|"\r\n")>
+     | <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
 }
 
 //Palabras Reservadas: Estructura del programa 
