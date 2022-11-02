@@ -37,5 +37,5 @@ javacc -version
 
 ![image](https://user-images.githubusercontent.com/83856930/199397900-3595f00c-ca31-443a-9f00-308c67e0666b.png)
 
-Siguiendo estos pasos ya es posible poder trabajar con archivos .jj para la generacion de tokens y declaracion de
-parsers desde algun editor de codigo o IDE como lo puede ser NetBeans o Eclipse.
+Siguiendo estos pasos ya es posible poder trabajar con archivos .jj para la generacion de parsers y declaracion de
+tokens desde algun editor de codigo o IDE como lo puede ser NetBeans o Eclipse.
