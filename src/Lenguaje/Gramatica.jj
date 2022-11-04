@@ -114,7 +114,7 @@ TOKEN: {
 
 //CADENAS
 TOKEN: {    
-   <CADENA:"\""(["a"-"z"]|["A"-"Z"]|["0"-"9"]|["%"]|["&"]|["\\"]|[","]|["."]|[":"]|[" "])+"\"">{System.out.println("CADENA -> " + image + "\n");}
+   <CADENA:"\""(["a"-"z"]|["A"-"Z"]|["0"-"9"]|["%"]|["&"]|["\\"]|["="]|[","]|["."]|[":"]|[" "])+"\"">{System.out.println("CADENA -> " + image + "\n");}
 }
 
 //NUMEROS

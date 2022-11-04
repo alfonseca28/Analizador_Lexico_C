@@ -556,7 +556,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      { jjCheckNAdd(3); }
                   break;
                case 3:
-                  if ((0x7ff506100000000L & l) != 0L)
+                  if ((0x27ff506100000000L & l) != 0L)
                      { jjCheckNAddTwoStates(3, 4); }
                   break;
                case 4:
@@ -1058,7 +1058,7 @@ void TokenLexicalActions(Token matchedToken)
          break;
       case 57 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                                                                System.out.println("CADENA -> " + image + "\u005cn");
+                                                                                                      System.out.println("CADENA -> " + image + "\u005cn");
          break;
       case 58 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
