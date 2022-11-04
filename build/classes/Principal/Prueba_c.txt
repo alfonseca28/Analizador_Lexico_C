@@ -1,36 +1,54 @@
-#include <stdio.h>
-main(){
-	int c=1,n1=0,n2=0,n3=0;
+/*En una tienda de decuento se efectua una promocion, en la cual se hace un descuento sobre el
+valor de la compra total, segun el numero del cliente saque al pagar en caja, si la bolita es 1
+no se le hara ningun descuento, si la bolita es 2 se le hara un 10%, si la bolita es 3 un 25%,
+si es 4 el 50% y si es 5 es el 100%.*/
+#include<stdio.h>
 
-        //esto es un comentario de una sola linea        
-        /*esto es un comentario
-        de 2 o mas lineas*/
+int main()
+{
+	int num_b;
+	float d, paso1, valor_c;
 
-	float s1=0,s2=0,s3=0,n=0,total=0;
-
-	while (c==1){
-		printf ("De cuanto fue el gasto");
-		scanf ("%f",&n);
-		if (n<=500){
-			n1=n1+1;
-			s1=s1+n;
-		}
-		else
-			if (n>500 && n<=1000){
-				n2=n2+1;
-				s2=s2+n;
-			}
-			if (n>1000){
-				n3=n3+1;
-				s3=s3+n;
-			}
-		printf ("Hubo otro gasto 1.SI 2.NO");
-		scanf ("%d",&c);
+	printf("Introduce el valor total de la compra");
+	scanf("%f",&valor_c);
+	printf("Introduce el numero de la bolita que conseguiste: ");
+	scanf("%d",&num_b);
+	switch (num_b)
+	{
+	case 1:
+		printf("Lo sentimos, no se te ha aplicado ningun descuento.");
+		printf("Pagas el total de tu compra:");
+		printf("%.2f\n", valor_c);
+		break;
+	case 2:
+		paso1 = valor_c*0.10;
+		d = valor_c-paso1;
+		printf("Felicidades, has obtenido un 10%% de descuento.");
+		printf("En total pagas:");
+		printf("%.2f\n",d);
+		break;
+	case 3:
+		paso1 = valor_c*0.25;
+		d = valor_c-paso1;
+		printf("Felicidades, has obtenido un 25%% de descuento.");
+		printf("En total pagas:");
+		printf("%.2f\n",d);
+		break;
+	case 4:
+		paso1 = valor_c*0.50;
+		d = valor_c-paso1;
+		printf("Felicidades, has obtenido un 50%% de descuento.");
+		printf("En total pagas: ");
+		printf("%.2f\n",d);
+		break;
+	case 5:
+		paso1 = valor_c*1;
+		d = valor_c-paso1;
+		printf("Felicidades, has obtenido un 100%% de descuento.");
+		printf("En total pagas:");
+		printf("%.2f\n",d);
+		break;
 	}
-	total=s1+s2+s3;
-	printf ("Los gastos menores o iguales a 500 fueron %d y su costo fue de %.2f ",n1,s1);
-	printf ("Los gastos mayores a 500 y menores o iguales a 1000 fueron %d y su costo fue de %.2f",n2,s2);
-	printf ("Los gatos mayores a 1000 fueron %d y su costo fue de %.2f",n3,s3);
-	printf ("El gasto global fue de %.2f",total);
 	return 0;
 }
+

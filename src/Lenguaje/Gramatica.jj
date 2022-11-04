@@ -15,7 +15,7 @@ public class Gramatica{
 
 PARSER_END(Gramatica)
 
-//SALTOS DE LINEA
+//IGNORAR ESPACIOS EN BLANCO, SALTOS DE LINEA, RENGLONES, TABULACIONES Y COMENTARIOS
 SKIP :{
      " "
      |"\n"
@@ -25,20 +25,15 @@ SKIP :{
      | <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
 }
 
-//Palabras Reservadas: Estructura del programa 
-
-TOKEN: {
-    
+//ESTRUCTURA-LIBRERIA, MAIN Y RETURN
+TOKEN: {    
     <LIBRERIA:"#include">{System.out.println("LIBRERIA -> " + image + "\n");}
     |<MAIN:"main">{System.out.println("MAIN -> " + image + "\n");}
     |<RETURN:"return">{System.out.println("RETURN -> " + image + "\n");}
-
-
 }
 
-//Palabras Reservadas:  Tipos Variables
-TOKEN: {
-    
+//VARIABLES
+TOKEN: {    
     <INT:"int">{System.out.println("INT -> " + image + "\n");}
     |<FLOAT:"float">{System.out.println("FLOAT -> " + image + "\n");}
     |<CHAR:"char">{System.out.println("CHAR -> " + image + "\n");}
@@ -47,12 +42,10 @@ TOKEN: {
     |<STRING:"string">{System.out.println("STRING -> " + image + "\n");}
     |<DOUBLE:"double">{System.out.println("DOUBLE -> " + image + "\n");}
     |<VOID:"void">{System.out.println("VOID -> " + image + "\n");}
-
 }
 
-//Palabras Reservadas: operadores Aritmeticos
-TOKEN: {
-    
+//OPERADORES ARITMETICOS
+TOKEN: {    
     <SUMA:"+">{System.out.println("SUMA -> " + image + "\n");}
     |<RESTA:"-">{System.out.println("RESTA -> " + image + "\n");}
     |<MULTIPLICAR:"*">{System.out.println("MULTIPLICAR -> " + image + "\n");}
@@ -60,37 +53,30 @@ TOKEN: {
     |<DIVISION:"/">{System.out.println("DIVISION -> " + image + "\n");}
     |<MODULO:"%">{System.out.println("MODULO -> " + image + "\n");}
     |<INCREMENTO:"++">{System.out.println("INCREMENTO -> " + image + "\n");}
-    |<DECREMENTO:"--">{System.out.println("DECREMENTO -> " + image + "\n");}
-  
+    |<DECREMENTO:"--">{System.out.println("DECREMENTO -> " + image + "\n");}  
 }
 
-//Palabras Reservadas: operadores Relacionales
-TOKEN: {
-    
+//OPERADORES CONDICIONALES
+TOKEN: {    
     <IGUAL:"==">{System.out.println("IGUAL -> " + image + "\n");}
     |<DIFERENTE:"!=">{System.out.println("DIFERENTE -> " + image + "\n");}
     |<MENOR:"<">{System.out.println("MENOR -> " + image + "\n");}
     |<MAYOR:">">{System.out.println("MAYOR -> " + image + "\n");}
     |<MENORIGUAL:"<=">{System.out.println("MENORIGUAL -> " + image + "\n");}
-    |<MAYORIGUAL:">=">{System.out.println("MAYORIGUAL -> " + image + "\n");}
-
-   
+    |<MAYORIGUAL:">=">{System.out.println("MAYORIGUAL -> " + image + "\n");}   
 }
 
 
-//Palabras Reservadas: Operadores Logicos
-TOKEN: {
-    
+//OPERADORES LOGICOS
+TOKEN: {    
     <AMPERSAND:"&">{System.out.println("AMPERSAND -> " + image + "\n");}
     |<AND:"&&">{System.out.println("AND -> " + image + "\n");}
     |<OR:"||">{System.out.println("OR -> " + image + "\n");}
-    |<NOT:"!">{System.out.println("NOT -> " + image + "\n");}
-   
+    |<NOT:"!">{System.out.println("NOT -> " + image + "\n");}   
 }
 
-//Palabras Reservadas: Estructuras de control
-TOKEN: {
-    
+//ESTRUCTURAS DE CONTROL
+TOKEN: {    
     <CICLOFOR:"for">{System.out.println("CICLOFOR -> " + image + "\n");}           
     |<CICLOWHILE:"while">{System.out.println("CICLOWHILE -> " + image + "\n");}          
     |<CICLODO:"do">{System.out.println("CICLODO -> " + image + "\n");}       
@@ -98,21 +84,17 @@ TOKEN: {
     |<ELSE:"else">{System.out.println("ELSE -> " + image + "\n");}          
     |<SWITCH:"switch">{System.out.println("SWITCH -> " + image + "\n");}       
     |<CASE:"case">{System.out.println("CASE -> " + image + "\n");}             
-    |<BREAK:"break">{System.out.println("BREAK -> " + image + "\n");} 
-   
-
+    |<BREAK:"break">{System.out.println("BREAK -> " + image + "\n");}  
 }
 
-//Palabras Reservadas: Output y input
-TOKEN: {
-    
+//ENTRADA/SALIDA DE DATOS
+TOKEN: {    
     <SCANF:"scanf"> {System.out.println("SCANF -> " + image + "\n");}              
     |< PRINTF:"printf">{System.out.println("PRINTF -> " + image + "\n");}   
 }
 
-//Palabras Reservadas: Operadores Agrupacion y delimitacion
-TOKEN: {
-    
+//CARACTERES DE AGRUPACION
+TOKEN: {    
     <LLAVEIZQ:"{">{System.out.println("LLAVEIZQ -> " + image + "\n");}
     |<LLAVEDER:"}">{System.out.println("LLAVEDER -> " + image + "\n");}
     |<PARENTIZQ:"(">{System.out.println("PARENTIZQ -> " + image + "\n");}
@@ -123,32 +105,24 @@ TOKEN: {
     |<COMA:",">{System.out.println("COMA -> " + image + "\n");}
     |<PUNTO:".">{System.out.println("PUNTO -> " + image + "\n");}
     |<DOSPUNTO:":">{System.out.println("DOSPUNTO -> " + image + "\n");}
-
 }
 
-//Nombre de las varibles 
-TOKEN: {
-    
-    <NOMBREVAR:(["a"-"z"]|["A"-"Z"])(["a"-"z"]|["0"-"9"]|[","])*>{System.out.println("NOMBREVAR -> " + image + "\n");}
-    
+//NOMBRE PARA VARIABLES
+TOKEN: {    
+    <NOMBREVAR:(["a"-"z"]|["A"-"Z"])(["a"-"z"]|["_"]|["0"-"9"]|[","])*>{System.out.println("NOMBREVAR -> " + image + "\n");}    
 }
 
-//Cadenas de texto
-TOKEN: {
-    
-   <CADENA:"\""(["a"-"z"]|["A"-"Z"]|["0"-"9"]|["%"]|["&"]|[","]|["."]|[" "])+"\"">{System.out.println("CADENA -> " + image + "\n");}
+//CADENAS
+TOKEN: {    
+   <CADENA:"\""(["a"-"z"]|["A"-"Z"]|["0"-"9"]|["%"]|["&"]|["\\"]|[","]|["."]|[":"]|[" "])+"\"">{System.out.println("CADENA -> " + image + "\n");}
 }
 
-
-//Numeros
-TOKEN: {
-    
+//NUMEROS
+TOKEN: {    
     <NUMERO:(["0"-"9"])+>{System.out.println("NUMERO -> " + image + "\n");}  
 }
 
-//Nombre de las librerias
-TOKEN: {
-    
-    <NOMLIBRERIA:"<"(["a"-"z"]|["A"-"Z"]|["."])+">">{System.out.println("NOMBRELIBRERIA -> " + image + "\n");}
-    
+//NOMBRE PARA LIBRERIAS
+TOKEN: {    
+    <NOMLIBRERIA:"<"(["a"-"z"]|["A"-"Z"]|["."])+">">{System.out.println("NOMBRELIBRERIA -> " + image + "\n");}    
 }

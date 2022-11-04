@@ -556,7 +556,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                      { jjCheckNAdd(3); }
                   break;
                case 3:
-                  if ((0x3ff506100000000L & l) != 0L)
+                  if ((0x7ff506100000000L & l) != 0L)
                      { jjCheckNAddTwoStates(3, 4); }
                   break;
                case 4:
@@ -638,15 +638,21 @@ private int jjMoveNfa_0(int startState, int curPos)
             switch(jjstateSet[--i])
             {
                case 0:
-               case 1:
                   if ((0x7fffffe07fffffeL & l) == 0L)
                      break;
                   if (kind > 56)
                      kind = 56;
                   { jjCheckNAdd(1); }
                   break;
+               case 1:
+                  if ((0x7fffffe87fffffeL & l) == 0L)
+                     break;
+                  if (kind > 56)
+                     kind = 56;
+                  { jjCheckNAdd(1); }
+                  break;
                case 3:
-                  if ((0x7fffffe07fffffeL & l) != 0L)
+                  if ((0x7fffffe17fffffeL & l) != 0L)
                      { jjAddStates(7, 8); }
                   break;
                case 7:
@@ -1048,11 +1054,11 @@ void TokenLexicalActions(Token matchedToken)
          break;
       case 56 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                                  System.out.println("NOMBREVAR -> " + image + "\u005cn");
+                                                                        System.out.println("NOMBREVAR -> " + image + "\u005cn");
          break;
       case 57 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                                                                                   System.out.println("CADENA -> " + image + "\u005cn");
+                                                                                                System.out.println("CADENA -> " + image + "\u005cn");
          break;
       case 58 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
