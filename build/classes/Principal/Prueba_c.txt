@@ -1,54 +1,61 @@
-/*En una tienda de decuento se efectua una promocion, en la cual se hace un descuento sobre el
-valor de la compra total, segun el numero del cliente saque al pagar en caja, si la bolita es 1
-no se le hara ningun descuento, si la bolita es 2 se le hara un 10%, si la bolita es 3 un 25%,
-si es 4 el 50% y si es 5 es el 100%.*/
-#include<stdio.h>
+/*El naufrago satisfecho ofrece hamburguesas sencillas,
+dobles y triples las cuales tienen un costo de 20, 25 y
+28. La empresa acepta tarjeta de credito con un cargo del
+5% sobre la compra. Suponiendo que los clientes adquieren
+N numero hamburguesas,las cuales pueden ser de diferentes
+tipos, entonces ¿cuanto deben pagar? */
 
-int main()
-{
-	int num_b;
-	float d, paso1, valor_c;
+#include <stdio.h>
+#include <stdlib.h>
 
-	printf("Introduce el valor total de la compra");
-	scanf("%f",&valor_c);
-	printf("Introduce el numero de la bolita que conseguiste: ");
-	scanf("%d",&num_b);
-	switch (num_b)
-	{
-	case 1:
-		printf("Lo sentimos, no se te ha aplicado ningun descuento.");
-		printf("Pagas el total de tu compra:");
-		printf("%.2f\n", valor_c);
-		break;
-	case 2:
-		paso1 = valor_c*0.10;
-		d = valor_c-paso1;
-		printf("Felicidades, has obtenido un 10%% de descuento.");
-		printf("En total pagas:");
-		printf("%.2f\n",d);
-		break;
-	case 3:
-		paso1 = valor_c*0.25;
-		d = valor_c-paso1;
-		printf("Felicidades, has obtenido un 25%% de descuento.");
-		printf("En total pagas:");
-		printf("%.2f\n",d);
-		break;
-	case 4:
-		paso1 = valor_c*0.50;
-		d = valor_c-paso1;
-		printf("Felicidades, has obtenido un 50%% de descuento.");
-		printf("En total pagas: ");
-		printf("%.2f\n",d);
-		break;
-	case 5:
-		paso1 = valor_c*1;
-		d = valor_c-paso1;
-		printf("Felicidades, has obtenido un 100%% de descuento.");
-		printf("En total pagas:");
-		printf("%.2f\n",d);
-		break;
-	}
+main(){
+    int forma_de_pago, i, n, tipo_de_hamburguesa;
+    float cargo, costo, pago;
+    pago = 0;
+    printf ("Cuantas hamburguesas va a comprar:");
+    scanf ("%d", &n);
+    
+    for (i=1; i<=n; i++){
+        
+        printf ("Hambuerguesa %d", i);
+        printf ("Seleccione el valor de tipo de hamburguesa:");
+        printf ("1=Sencilla");
+        printf ("2=Doble");
+        printf ("3=Triple");
+
+        do{
+
+            scanf ("%d", &tipo_de_hamburguesa);
+            if (tipo_de_hamburguesa<1||tipo_de_hamburguesa>3)
+			printf ("Valor incorrecto. Ingreselo nuevamente: ");
+
+        }while (tipo_de_hamburguesa<1||tipo_de_hamburguesa>3);
+
+        costo=0;
+        if(tipo_de_hamburguesa==1)
+            costo=20;
+        if(tipo_de_hamburguesa==2)
+            costo=25;
+        if(tipo_de_hamburguesa==3)
+            costo=28;
+
+	        printf ("Seleccione el valor de forma de pago:");
+	        printf ("1=Efectivo");
+	        printf ("2=Tarjeta");
+        
+        do{
+
+            scanf ("%d", &forma_de_pago);
+            if (forma_de_pago<1||forma_de_pago>2)
+                printf ("Valor incorrecto. Ingreselo nuevamente.");
+
+        }while (forma_de_pago<1||forma_de_pago>2);
+        
+        cargo=forma_de_pago==1!=0:costo*0.05;
+        pago=pago+costo+cargo;        
+        printf ("Valor de cargo: %.2f", cargo);
+        printf ("Valor de costo: %.2f", costo);
+    }
+    printf ("Valor de pago: %.2f pesos", pago);
 	return 0;
 }
-

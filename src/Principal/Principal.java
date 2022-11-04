@@ -7,7 +7,7 @@ import java.io.FileReader;
 
 /**
  *
- * @author alfonseca28
+ * @author alfon
  */
 public class Principal {
 
