@@ -1,18 +1,13 @@
 options{
-
 IGNORE_CASE = true;
 BUILD_PARSER = true;
 STATIC = false;
 }
 
 PARSER_BEGIN(Gramatica)
-
 package Lenguaje;
-
 public class Gramatica{
-
 }
-
 PARSER_END(Gramatica)
 
 //IGNORAR ESPACIOS EN BLANCO, SALTOS DE LINEA, RENGLONES, TABULACIONES Y COMENTARIOS
@@ -27,7 +22,7 @@ SKIP :{
 
 //ESTRUCTURA-LIBRERIA, MAIN Y RETURN
 TOKEN: {    
-    <LIBRERIA:"#include">{System.out.println("LIBRERIA -> " + image + "\n");}
+    <LIBRERIAS:"#include">{System.out.println("LIBRERIA -> " + image + "\n");}
     |<MAIN:"main">{System.out.println("MAIN -> " + image + "\n");}
     |<RETURN:"return">{System.out.println("RETURN -> " + image + "\n");}
 }
@@ -37,7 +32,7 @@ TOKEN: {
     <INT:"int">{System.out.println("INT -> " + image + "\n");}
     |<FLOAT:"float">{System.out.println("FLOAT -> " + image + "\n");}
     |<CHAR:"char">{System.out.println("CHAR -> " + image + "\n");}
-    |<BOOL:"bool">{System.out.println("BOOL -> " + image + "\n");}
+    |<BOOLEAN:"bool">{System.out.println("BOOL -> " + image + "\n");}
     |<SHORT:"short">{System.out.println("SHORT -> " + image + "\n");}
     |<STRING:"string">{System.out.println("STRING -> " + image + "\n");}
     |<DOUBLE:"double">{System.out.println("DOUBLE -> " + image + "\n");}
@@ -48,7 +43,7 @@ TOKEN: {
 TOKEN: {    
     <SUMA:"+">{System.out.println("SUMA -> " + image + "\n");}
     |<RESTA:"-">{System.out.println("RESTA -> " + image + "\n");}
-    |<MULTIPLICAR:"*">{System.out.println("MULTIPLICAR -> " + image + "\n");}
+    |<MULTIPLICACION:"*">{System.out.println("MULTIPLICAR -> " + image + "\n");}
     |<ASIGNAR:"=">{System.out.println("ASIGNAR -> " + image + "\n");}
     |<DIVISION:"/">{System.out.println("DIVISION -> " + image + "\n");}
     |<MODULO:"%">{System.out.println("MODULO -> " + image + "\n");}
@@ -56,29 +51,11 @@ TOKEN: {
     |<DECREMENTO:"--">{System.out.println("DECREMENTO -> " + image + "\n");}  
 }
 
-//OPERADORES CONDICIONALES
-TOKEN: {    
-    <IGUAL:"==">{System.out.println("IGUAL -> " + image + "\n");}
-    |<DIFERENTE:"!=">{System.out.println("DIFERENTE -> " + image + "\n");}
-    |<MENOR:"<">{System.out.println("MENOR -> " + image + "\n");}
-    |<MAYOR:">">{System.out.println("MAYOR -> " + image + "\n");}
-    |<MENORIGUAL:"<=">{System.out.println("MENORIGUAL -> " + image + "\n");}
-    |<MAYORIGUAL:">=">{System.out.println("MAYORIGUAL -> " + image + "\n");}   
-}
-
-//OPERADORES LOGICOS
-TOKEN: {    
-    <AMPERSAND:"&">{System.out.println("AMPERSAND -> " + image + "\n");}
-    |<AND:"&&">{System.out.println("AND -> " + image + "\n");}
-    |<OR:"||">{System.out.println("OR -> " + image + "\n");}
-    |<NOT:"!">{System.out.println("NOT -> " + image + "\n");}   
-}
-
 //ESTRUCTURAS DE CONTROL
 TOKEN: {    
-    <CICLOFOR:"for">{System.out.println("CICLOFOR -> " + image + "\n");}           
-    |<CICLOWHILE:"while">{System.out.println("CICLOWHILE -> " + image + "\n");}          
-    |<CICLODO:"do">{System.out.println("CICLODO -> " + image + "\n");}       
+    <FOR:"for">{System.out.println("CICLOFOR -> " + image + "\n");}           
+    |<WHILE:"while">{System.out.println("CICLOWHILE -> " + image + "\n");}          
+    |<DO:"do">{System.out.println("CICLODO -> " + image + "\n");}       
     |<IF:"if"> {System.out.println("IF -> " + image + "\n");}              
     |<ELSE:"else">{System.out.println("ELSE -> " + image + "\n");}          
     |<SWITCH:"switch">{System.out.println("SWITCH -> " + image + "\n");}       
@@ -92,18 +69,36 @@ TOKEN: {
     |< PRINTF:"printf">{System.out.println("PRINTF -> " + image + "\n");}   
 }
 
+//OPERADORES CONDICIONALES
+TOKEN: {    
+    <IGUAL:"==">{System.out.println("IGUAL -> " + image + "\n");}
+    |<DIFERENTE:"!=">{System.out.println("DIFERENTE -> " + image + "\n");}
+    |<MENOR:"<">{System.out.println("MENOR -> " + image + "\n");}
+    |<MAYOR:">">{System.out.println("MAYOR -> " + image + "\n");}
+    |<MENOR_IGUAL:"<=">{System.out.println("MENORIGUAL -> " + image + "\n");}
+    |<MAYOR_IGUAL:">=">{System.out.println("MAYORIGUAL -> " + image + "\n");}   
+}
+
+//OPERADORES LOGICOS
+TOKEN: {    
+    <AMPERSAND:"&">{System.out.println("AMPERSAND -> " + image + "\n");}
+    |<AND:"&&">{System.out.println("AND -> " + image + "\n");}
+    |<OR:"||">{System.out.println("OR -> " + image + "\n");}
+    |<NOT:"!">{System.out.println("NOT -> " + image + "\n");}   
+}
+
 //CARACTERES DE AGRUPACION
 TOKEN: {    
-    <LLAVEIZQ:"{">{System.out.println("LLAVEIZQ -> " + image + "\n");}
-    |<LLAVEDER:"}">{System.out.println("LLAVEDER -> " + image + "\n");}
-    |<PARENTIZQ:"(">{System.out.println("PARENTIZQ -> " + image + "\n");}
-    |<PARENTDER:")">{System.out.println("PARENTDER -> " + image + "\n");}
-    |<SENTFIN:";">{System.out.println("SENTFIN -> " + image + "\n");}
-    |<CORCHETEIZQ:"[">{System.out.println("CORCHETEIZQ -> " + image + "\n");}
-    |<CORCHETEDER:"]">{System.out.println("CORCHETEDER -> " + image + "\n");}
+    <LLAVE_APERTURA:"{">{System.out.println("LLAVEIZQ -> " + image + "\n");}
+    |<LLAVE_CIERRE:"}">{System.out.println("LLAVEDER -> " + image + "\n");}
+    |<PARENTESIS_APERTURA:"(">{System.out.println("PARENTIZQ -> " + image + "\n");}
+    |<PARENTESIS_CIERRE:")">{System.out.println("PARENTDER -> " + image + "\n");}
+    |<PUNTO_COMA:";">{System.out.println("SENTFIN -> " + image + "\n");}
+    |<CORCHETE_APERTURA:"[">{System.out.println("CORCHETEIZQ -> " + image + "\n");}
+    |<CORCHETE_CIERRE:"]">{System.out.println("CORCHETEDER -> " + image + "\n");}
     |<COMA:",">{System.out.println("COMA -> " + image + "\n");}
     |<PUNTO:".">{System.out.println("PUNTO -> " + image + "\n");}
-    |<DOSPUNTO:":">{System.out.println("DOSPUNTO -> " + image + "\n");}
+    |<DOS_PUNTOS:":">{System.out.println("DOSPUNTO -> " + image + "\n");}
 }
 
 //NOMBRE PARA VARIABLES
@@ -118,7 +113,7 @@ TOKEN: {
 
 //NUMEROS
 TOKEN: {    
-    <NUMERO:(["0"-"9"])+>{System.out.println("NUMERO -> " + image + "\n");}  
+    <NUMEROS:(["0"-"9"])+>{System.out.println("NUMERO -> " + image + "\n");}  
 }
 
 //NOMBRE PARA LIBRERIAS

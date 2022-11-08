@@ -11,7 +11,7 @@ public interface GramaticaConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int LIBRERIA = 7;
+  int LIBRERIAS = 7;
   /** RegularExpression Id. */
   int MAIN = 8;
   /** RegularExpression Id. */
@@ -23,7 +23,7 @@ public interface GramaticaConstants {
   /** RegularExpression Id. */
   int CHAR = 12;
   /** RegularExpression Id. */
-  int BOOL = 13;
+  int BOOLEAN = 13;
   /** RegularExpression Id. */
   int SHORT = 14;
   /** RegularExpression Id. */
@@ -37,7 +37,7 @@ public interface GramaticaConstants {
   /** RegularExpression Id. */
   int RESTA = 19;
   /** RegularExpression Id. */
-  int MULTIPLICAR = 20;
+  int MULTIPLICACION = 20;
   /** RegularExpression Id. */
   int ASIGNAR = 21;
   /** RegularExpression Id. */
@@ -49,71 +49,71 @@ public interface GramaticaConstants {
   /** RegularExpression Id. */
   int DECREMENTO = 25;
   /** RegularExpression Id. */
-  int IGUAL = 26;
+  int FOR = 26;
   /** RegularExpression Id. */
-  int DIFERENTE = 27;
+  int WHILE = 27;
   /** RegularExpression Id. */
-  int MENOR = 28;
+  int DO = 28;
   /** RegularExpression Id. */
-  int MAYOR = 29;
+  int IF = 29;
   /** RegularExpression Id. */
-  int MENORIGUAL = 30;
+  int ELSE = 30;
   /** RegularExpression Id. */
-  int MAYORIGUAL = 31;
+  int SWITCH = 31;
   /** RegularExpression Id. */
-  int AMPERSAND = 32;
+  int CASE = 32;
   /** RegularExpression Id. */
-  int AND = 33;
+  int BREAK = 33;
   /** RegularExpression Id. */
-  int OR = 34;
+  int SCANF = 34;
   /** RegularExpression Id. */
-  int NOT = 35;
+  int PRINTF = 35;
   /** RegularExpression Id. */
-  int CICLOFOR = 36;
+  int IGUAL = 36;
   /** RegularExpression Id. */
-  int CICLOWHILE = 37;
+  int DIFERENTE = 37;
   /** RegularExpression Id. */
-  int CICLODO = 38;
+  int MENOR = 38;
   /** RegularExpression Id. */
-  int IF = 39;
+  int MAYOR = 39;
   /** RegularExpression Id. */
-  int ELSE = 40;
+  int MENOR_IGUAL = 40;
   /** RegularExpression Id. */
-  int SWITCH = 41;
+  int MAYOR_IGUAL = 41;
   /** RegularExpression Id. */
-  int CASE = 42;
+  int AMPERSAND = 42;
   /** RegularExpression Id. */
-  int BREAK = 43;
+  int AND = 43;
   /** RegularExpression Id. */
-  int SCANF = 44;
+  int OR = 44;
   /** RegularExpression Id. */
-  int PRINTF = 45;
+  int NOT = 45;
   /** RegularExpression Id. */
-  int LLAVEIZQ = 46;
+  int LLAVE_APERTURA = 46;
   /** RegularExpression Id. */
-  int LLAVEDER = 47;
+  int LLAVE_CIERRE = 47;
   /** RegularExpression Id. */
-  int PARENTIZQ = 48;
+  int PARENTESIS_APERTURA = 48;
   /** RegularExpression Id. */
-  int PARENTDER = 49;
+  int PARENTESIS_CIERRE = 49;
   /** RegularExpression Id. */
-  int SENTFIN = 50;
+  int PUNTO_COMA = 50;
   /** RegularExpression Id. */
-  int CORCHETEIZQ = 51;
+  int CORCHETE_APERTURA = 51;
   /** RegularExpression Id. */
-  int CORCHETEDER = 52;
+  int CORCHETE_CIERRE = 52;
   /** RegularExpression Id. */
   int COMA = 53;
   /** RegularExpression Id. */
   int PUNTO = 54;
   /** RegularExpression Id. */
-  int DOSPUNTO = 55;
+  int DOS_PUNTOS = 55;
   /** RegularExpression Id. */
   int NOMBREVAR = 56;
   /** RegularExpression Id. */
   int CADENA = 57;
   /** RegularExpression Id. */
-  int NUMERO = 58;
+  int NUMEROS = 58;
   /** RegularExpression Id. */
   int NOMLIBRERIA = 59;
 
@@ -148,16 +148,6 @@ public interface GramaticaConstants {
     "\"%\"",
     "\"++\"",
     "\"--\"",
-    "\"==\"",
-    "\"!=\"",
-    "\"<\"",
-    "\">\"",
-    "\"<=\"",
-    "\">=\"",
-    "\"&\"",
-    "\"&&\"",
-    "\"||\"",
-    "\"!\"",
     "\"for\"",
     "\"while\"",
     "\"do\"",
@@ -168,6 +158,16 @@ public interface GramaticaConstants {
     "\"break\"",
     "\"scanf\"",
     "\"printf\"",
+    "\"==\"",
+    "\"!=\"",
+    "\"<\"",
+    "\">\"",
+    "\"<=\"",
+    "\">=\"",
+    "\"&\"",
+    "\"&&\"",
+    "\"||\"",
+    "\"!\"",
     "\"{\"",
     "\"}\"",
     "\"(\"",
@@ -180,7 +180,7 @@ public interface GramaticaConstants {
     "\":\"",
     "<NOMBREVAR>",
     "<CADENA>",
-    "<NUMERO>",
+    "<NUMEROS>",
     "<NOMLIBRERIA>",
   };
 
