@@ -45,7 +45,7 @@ main(){
         
         do{
 
-            scanf ("%d", &forma_de_pago $);
+            scanf ("%d", &forma_de_pago);
             if (forma_de_pago<1||forma_de_pago>2)
                 printf ("Valor incorrecto. Ingreselo nuevamente.");
 
