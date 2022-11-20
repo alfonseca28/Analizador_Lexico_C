@@ -5,8 +5,7 @@ public class Gramatica implements GramaticaConstants {
 
 //----------ANALIZADOR SINTACTICO----------
 
-//aqui se van a crear funciones (expresiones regulares) mendiante
-//javacc para que se analizen las estructuras basicas del lenguaje
+//aqui se van a crear funciones (expresiones regulares) mendiante javacc para que se analizen las estructuras basicas del lenguaje (el lenguaje a analizar es c)
   final public 
 void Programa() throws ParseException {
     label_1:

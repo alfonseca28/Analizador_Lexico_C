@@ -1,9 +1,8 @@
-/*El naufrago satisfecho ofrece hamburguesas sencillas,
-dobles y triples las cuales tienen un costo de 20, 25 y
-28. La empresa acepta tarjeta de credito con un cargo del
-5% sobre la compra. Suponiendo que los clientes adquieren
-N numero hamburguesas,las cuales pueden ser de diferentes
-tipos, entonces ¿cuanto deben pagar? */
+/*El naufrago satisfecho ofrece hamburguesas sencillas, dobles y triples las cuales tienen un costo de 20, 25 y
+28. La empresa acepta tarjeta de credito con un cargo del 5% sobre la compra. Suponiendo que los clientes adquieren
+N numero hamburguesas,las cuales pueden ser de diferentes tipos, entonces ¿cuanto deben pagar? */
+
+//Inicio del programa
 
 #include <stdio.h>
 #include <stdlib.h>
