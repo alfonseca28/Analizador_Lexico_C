@@ -22,7 +22,7 @@ SKIP :{
 
 //ESTRUCTURA-LIBRERIA, MAIN Y RETURN
 TOKEN: {    
-    <LIBRERIAS:"#include">{System.out.println("LIBRERIA -> " + image + "\n");}
+    <LIBRERIAS:"#include">{System.out.println("LIBRERIAS -> " + image + "\n");}
     |<MAIN:"main">{System.out.println("MAIN -> " + image + "\n");}
     |<RETURN:"return">{System.out.println("RETURN -> " + image + "\n");}
 }
@@ -43,7 +43,7 @@ TOKEN: {
 TOKEN: {    
     <SUMA:"+">{System.out.println("SUMA -> " + image + "\n");}
     |<RESTA:"-">{System.out.println("RESTA -> " + image + "\n");}
-    |<MULTIPLICACION:"*">{System.out.println("MULTIPLICAR -> " + image + "\n");}
+    |<MULTIPLICACION:"*">{System.out.println("MULTIPLICACION -> " + image + "\n");}
     |<ASIGNAR:"=">{System.out.println("ASIGNAR -> " + image + "\n");}
     |<DIVISION:"/">{System.out.println("DIVISION -> " + image + "\n");}
     |<MODULO:"%">{System.out.println("MODULO -> " + image + "\n");}
@@ -53,9 +53,9 @@ TOKEN: {
 
 //ESTRUCTURAS DE CONTROL
 TOKEN: {    
-    <FOR:"for">{System.out.println("CICLOFOR -> " + image + "\n");}           
-    |<WHILE:"while">{System.out.println("CICLOWHILE -> " + image + "\n");}          
-    |<DO:"do">{System.out.println("CICLODO -> " + image + "\n");}       
+    <FOR:"for">{System.out.println("FOR -> " + image + "\n");}           
+    |<WHILE:"while">{System.out.println("WHILE -> " + image + "\n");}          
+    |<DO:"do">{System.out.println("DO -> " + image + "\n");}       
     |<IF:"if"> {System.out.println("IF -> " + image + "\n");}              
     |<ELSE:"else">{System.out.println("ELSE -> " + image + "\n");}          
     |<SWITCH:"switch">{System.out.println("SWITCH -> " + image + "\n");}       
@@ -75,8 +75,8 @@ TOKEN: {
     |<DIFERENTE:"!=">{System.out.println("DIFERENTE -> " + image + "\n");}
     |<MENOR:"<">{System.out.println("MENOR -> " + image + "\n");}
     |<MAYOR:">">{System.out.println("MAYOR -> " + image + "\n");}
-    |<MENOR_IGUAL:"<=">{System.out.println("MENORIGUAL -> " + image + "\n");}
-    |<MAYOR_IGUAL:">=">{System.out.println("MAYORIGUAL -> " + image + "\n");}   
+    |<MENOR_IGUAL:"<=">{System.out.println("MENOR_IGUAL -> " + image + "\n");}
+    |<MAYOR_IGUAL:">=">{System.out.println("MAYOR_IGUAL -> " + image + "\n");}   
 }
 
 //OPERADORES LOGICOS
@@ -89,16 +89,16 @@ TOKEN: {
 
 //CARACTERES DE AGRUPACION
 TOKEN: {    
-    <LLAVE_APERTURA:"{">{System.out.println("LLAVEIZQ -> " + image + "\n");}
-    |<LLAVE_CIERRE:"}">{System.out.println("LLAVEDER -> " + image + "\n");}
-    |<PARENTESIS_APERTURA:"(">{System.out.println("PARENTIZQ -> " + image + "\n");}
-    |<PARENTESIS_CIERRE:")">{System.out.println("PARENTDER -> " + image + "\n");}
-    |<PUNTO_COMA:";">{System.out.println("SENTFIN -> " + image + "\n");}
+    <LLAVE_APERTURA:"{">{System.out.println("LLAVE_APERTURA -> " + image + "\n");}
+    |<LLAVE_CIERRE:"}">{System.out.println("LLAVE_CIERRE -> " + image + "\n");}
+    |<PARENTESIS_APERTURA:"(">{System.out.println("PARENTESIS_APERTURA -> " + image + "\n");}
+    |<PARENTESIS_CIERRE:")">{System.out.println("PARENTESIS_CIERRE -> " + image + "\n");}
+    |<PUNTO_COMA:";">{System.out.println("PUNTO_COMA -> " + image + "\n");}
     |<CORCHETE_APERTURA:"[">{System.out.println("CORCHETEIZQ -> " + image + "\n");}
     |<CORCHETE_CIERRE:"]">{System.out.println("CORCHETEDER -> " + image + "\n");}
     |<COMA:",">{System.out.println("COMA -> " + image + "\n");}
     |<PUNTO:".">{System.out.println("PUNTO -> " + image + "\n");}
-    |<DOS_PUNTOS:":">{System.out.println("DOSPUNTO -> " + image + "\n");}
+    |<DOS_PUNTOS:":">{System.out.println("DOS_PUNTOS -> " + image + "\n");}
 }
 
 //NOMBRE PARA VARIABLES
@@ -113,10 +113,171 @@ TOKEN: {
 
 //NUMEROS
 TOKEN: {    
-    <NUMEROS:(["0"-"9"])+>{System.out.println("NUMERO -> " + image + "\n");}  
+    <NUMEROS:(["0"-"9"])+>{System.out.println("NUMEROS -> " + image + "\n");}  
 }
 
 //NOMBRE PARA LIBRERIAS
 TOKEN: {    
     <NOMLIBRERIA:"<"(["a"-"z"]|["A"-"Z"]|["."])+">">{System.out.println("NOMBRELIBRERIA -> " + image + "\n");}    
+}
+
+//----------ANALIZADOR SINTACTICO----------
+
+//aqui se van a crear funciones (expresiones regulares) mendiante
+//javacc para que se analizen las estructuras basicas del lenguaje
+
+void Programa ():{}
+{
+
+(Librerias())+
+<MAIN>
+<PARENTESIS_APERTURA>
+<PARENTESIS_APERTURA>
+<LLAVE_APERTURA>
+Bloque()
+<RETURN>
+<NUMEROS>
+<PUNTO_COMA>
+<LLAVE_CIERRE>
+<EOF>
+
+}
+
+void Librerias():{}
+{
+    <LIBRERIAS><NOMLIBRERIA>
+}
+
+void Bloque():{}
+{
+(Sentencias())*
+}
+
+void Sentencias():{}
+{
+Declaraciones()
+|cicloWhile()
+|Impresion()
+|Lectura()
+|Cond_IF()
+|asignacionAritmetica()
+|cicloFor()
+|cicloDoWhile()
+|Swich()
+}
+
+void Declaraciones():{}
+{
+//TIPO DE DATO
+(<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>)
+
+//NOMBRE DE LA VARIABLES
+<NOMBREVAR>
+
+//SIMBOLO 
+((<ASIGNAR>
+
+//VALOR
+(<NUMEROS>|<CADENA>))
+
+|
+//DECLARACION MULTIPLE
+(<COMA><NOMBREVAR><ASIGNAR>
+(<NOMBREVAR>|<NUMEROS>|<CADENA>)))*
+
+<PUNTO_COMA>
+}
+
+
+
+void asignacionAritmetica() : {}
+{
+<NOMBREVAR>(<ASIGNAR>|<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)operacion()<PUNTO_COMA>
+}
+
+void operacion() : {}
+{
+( <NUMEROS>|<NOMBREVAR>)((<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)(<NUMEROS>|<NOMBREVAR>))*
+}
+
+void incrementoDecremento():{}
+{
+//OPERANDO
+(<NOMBREVAR>)
+
+//SIGNO
+(<INCREMENTO>|<DECREMENTO>)
+
+}
+
+void Impresion():{}
+{
+<PRINTF><PARENTESIS_APERTURA><CADENA>(<COMA><NOMBREVAR>)*<PARENTESIS_CIERRE><PUNTO_COMA>
+}
+
+void Lectura():{}
+{
+<SCANF><PARENTESIS_APERTURA><CADENA><COMA><AMPERSAND><NOMBREVAR><PARENTESIS_CIERRE><PUNTO_COMA>
+}
+
+void comparacionLogica():{}
+{
+
+//PRIMER TERMINO 
+((<NOT>(<NOMBREVAR>|<NUMEROS>|<CADENA>))|<NOMBREVAR>|<NUMEROS>|<CADENA>)
+
+
+//OPERADOR
+((<IGUAL>|<DIFERENTE>|<MENOR>|<MAYOR>|<MENOR_IGUAL>|<MAYOR_IGUAL>|<AND>|<OR>)
+
+
+//SEGUNDO TERMINO
+((<NOT>(<NOMBREVAR>|<NUMEROS>|<CADENA>))|<NOMBREVAR>|<NUMEROS>|<CADENA>))*
+}
+
+
+void Cond_IF():{}{
+<IF><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+
+
+
+//ELSEIF
+(LOOKAHEAD(2)(<ELSE><IF><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>))*
+(LOOKAHEAD(2)(<ELSE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>))*
+}
+
+void cicloFor() : {}
+{
+
+<FOR><PARENTESIS_APERTURA><NOMBREVAR><ASIGNAR><NUMEROS><PUNTO_COMA><NOMBREVAR>
+
+//OPERADOR LOGICO
+(<MENOR>|<MAYOR>|<MENOR_IGUAL>|<MAYOR_IGUAL>|<IGUAL>|<DIFERENTE>)(<NUMEROS>|<NOMBREVAR>)<PUNTO_COMA>
+
+
+//PASO
+<NOMBREVAR>(<INCREMENTO>|<DECREMENTO>)
+<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+
+}
+
+void cicloWhile() : {}
+{
+<WHILE><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+}
+
+
+void cicloDoWhile():{}
+{
+<DO> <LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE><WHILE><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><PUNTO_COMA>
+}
+
+
+void Swich() :{}{
+<SWITCH><PARENTESIS_APERTURA><NOMBREVAR><PARENTESIS_CIERRE><LLAVE_APERTURA>
+
+(<CASE><NUMEROS><DOS_PUNTOS>(Sentencias())*<BREAK><PUNTO_COMA>)+
+
+<LLAVE_CIERRE>
+
 }

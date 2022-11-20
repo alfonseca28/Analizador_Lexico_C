@@ -830,7 +830,7 @@ void TokenLexicalActions(Token matchedToken)
    {
       case 7 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                           System.out.println("LIBRERIA -> " + image + "\u005cn");
+                           System.out.println("LIBRERIAS -> " + image + "\u005cn");
          break;
       case 8 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
@@ -885,7 +885,7 @@ void TokenLexicalActions(Token matchedToken)
       case 20 :
         image.append(jjstrLiteralImages[20]);
         lengthOfMatch = jjstrLiteralImages[20].length();
-                          System.out.println("MULTIPLICAR -> " + image + "\u005cn");
+                          System.out.println("MULTIPLICACION -> " + image + "\u005cn");
          break;
       case 21 :
         image.append(jjstrLiteralImages[21]);
@@ -914,15 +914,15 @@ void TokenLexicalActions(Token matchedToken)
          break;
       case 26 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                System.out.println("CICLOFOR -> " + image + "\u005cn");
+                System.out.println("FOR -> " + image + "\u005cn");
          break;
       case 27 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                     System.out.println("CICLOWHILE -> " + image + "\u005cn");
+                     System.out.println("WHILE -> " + image + "\u005cn");
          break;
       case 28 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-               System.out.println("CICLODO -> " + image + "\u005cn");
+               System.out.println("DO -> " + image + "\u005cn");
          break;
       case 29 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
@@ -975,12 +975,12 @@ void TokenLexicalActions(Token matchedToken)
       case 40 :
         image.append(jjstrLiteralImages[40]);
         lengthOfMatch = jjstrLiteralImages[40].length();
-                        System.out.println("MENORIGUAL -> " + image + "\u005cn");
+                        System.out.println("MENOR_IGUAL -> " + image + "\u005cn");
          break;
       case 41 :
         image.append(jjstrLiteralImages[41]);
         lengthOfMatch = jjstrLiteralImages[41].length();
-                        System.out.println("MAYORIGUAL -> " + image + "\u005cn");
+                        System.out.println("MAYOR_IGUAL -> " + image + "\u005cn");
          break;
       case 42 :
         image.append(jjstrLiteralImages[42]);
@@ -1005,27 +1005,27 @@ void TokenLexicalActions(Token matchedToken)
       case 46 :
         image.append(jjstrLiteralImages[46]);
         lengthOfMatch = jjstrLiteralImages[46].length();
-                         System.out.println("LLAVEIZQ -> " + image + "\u005cn");
+                         System.out.println("LLAVE_APERTURA -> " + image + "\u005cn");
          break;
       case 47 :
         image.append(jjstrLiteralImages[47]);
         lengthOfMatch = jjstrLiteralImages[47].length();
-                        System.out.println("LLAVEDER -> " + image + "\u005cn");
+                        System.out.println("LLAVE_CIERRE -> " + image + "\u005cn");
          break;
       case 48 :
         image.append(jjstrLiteralImages[48]);
         lengthOfMatch = jjstrLiteralImages[48].length();
-                               System.out.println("PARENTIZQ -> " + image + "\u005cn");
+                               System.out.println("PARENTESIS_APERTURA -> " + image + "\u005cn");
          break;
       case 49 :
         image.append(jjstrLiteralImages[49]);
         lengthOfMatch = jjstrLiteralImages[49].length();
-                             System.out.println("PARENTDER -> " + image + "\u005cn");
+                             System.out.println("PARENTESIS_CIERRE -> " + image + "\u005cn");
          break;
       case 50 :
         image.append(jjstrLiteralImages[50]);
         lengthOfMatch = jjstrLiteralImages[50].length();
-                      System.out.println("SENTFIN -> " + image + "\u005cn");
+                      System.out.println("PUNTO_COMA -> " + image + "\u005cn");
          break;
       case 51 :
         image.append(jjstrLiteralImages[51]);
@@ -1050,7 +1050,7 @@ void TokenLexicalActions(Token matchedToken)
       case 55 :
         image.append(jjstrLiteralImages[55]);
         lengthOfMatch = jjstrLiteralImages[55].length();
-                      System.out.println("DOSPUNTO -> " + image + "\u005cn");
+                      System.out.println("DOS_PUNTOS -> " + image + "\u005cn");
          break;
       case 56 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
@@ -1062,7 +1062,7 @@ void TokenLexicalActions(Token matchedToken)
          break;
       case 58 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
-                           System.out.println("NUMERO -> " + image + "\u005cn");
+                           System.out.println("NUMEROS -> " + image + "\u005cn");
          break;
       case 59 :
         image.append(input_stream.GetSuffix(jjimageLen + (lengthOfMatch = jjmatchedPos + 1)));
