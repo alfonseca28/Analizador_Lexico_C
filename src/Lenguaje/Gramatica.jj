@@ -121,9 +121,10 @@ TOKEN: {
     <NOMLIBRERIA:"<"(["a"-"z"]|["A"-"Z"]|["."])+">">{System.out.println("NOMBRELIBRERIA -> " + image + "\n");}    
 }
 
-//----------ANALIZADOR SINTACTICO----------
+//----------------------------------------ANALIZADOR SINTACTICO----------------------------------------
 
-//aqui se van a crear funciones (expresiones regulares) mendiante javacc para que se analizen las estructuras basicas del lenguaje (el lenguaje a analizar es c)
+//aqui se van a crear funciones (expresiones regulares) mendiante javacc para que se analizen las
+//estructuras basicas del lenguaje (el lenguaje a analizar es c)
 
 void Programa ():{}
 {
@@ -187,7 +188,7 @@ void Declaraciones():{}
 <PUNTO_COMA>
 }
 
-//ASIGNAR VAORES A LAS VARIABLES
+//ASIGNAR VALORES A LAS VARIABLES
 void asignacionAritmetica() : {}
 {
 <NOMBREVAR>(<ASIGNAR>|<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)operacion()<PUNTO_COMA>

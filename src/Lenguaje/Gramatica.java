@@ -219,7 +219,7 @@ void Programa() throws ParseException {
     jj_consume_token(PUNTO_COMA);
   }
 
-//ASIGNAR VAORES A LAS VARIABLES
+//ASIGNAR VALORES A LAS VARIABLES
   final public void asignacionAritmetica() throws ParseException {
     jj_consume_token(NOMBREVAR);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
