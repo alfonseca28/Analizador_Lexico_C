@@ -23,7 +23,7 @@ void Programa() throws ParseException {
     }
     jj_consume_token(MAIN);
     jj_consume_token(PARENTESIS_APERTURA);
-    jj_consume_token(PARENTESIS_APERTURA);
+    jj_consume_token(PARENTESIS_CIERRE);
     jj_consume_token(LLAVE_APERTURA);
     Bloque();
     jj_consume_token(RETURN);
@@ -219,6 +219,7 @@ void Programa() throws ParseException {
     jj_consume_token(PUNTO_COMA);
   }
 
+//ASIGNAR VAORES A LAS VARIABLES
   final public void asignacionAritmetica() throws ParseException {
     jj_consume_token(NOMBREVAR);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -255,6 +256,7 @@ void Programa() throws ParseException {
     jj_consume_token(PUNTO_COMA);
   }
 
+//REALIZAR OPERACIONES
   final public void operacion() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case NUMEROS:{
@@ -328,6 +330,7 @@ void Programa() throws ParseException {
     }
   }
 
+//INCREMENTAR O DECREMENTAR
   final public void incrementoDecremento() throws ParseException {
     jj_consume_token(NOMBREVAR);
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -346,6 +349,7 @@ void Programa() throws ParseException {
     }
   }
 
+//FUNCION PARA IMPRIMIR
   final public void Impresion() throws ParseException {
     jj_consume_token(PRINTF);
     jj_consume_token(PARENTESIS_APERTURA);
@@ -368,6 +372,7 @@ void Programa() throws ParseException {
     jj_consume_token(PUNTO_COMA);
   }
 
+//FUNCION PARA LEER O ESCANEAR DATOS DE ENTRADA
   final public void Lectura() throws ParseException {
     jj_consume_token(SCANF);
     jj_consume_token(PARENTESIS_APERTURA);
@@ -379,6 +384,7 @@ void Programa() throws ParseException {
     jj_consume_token(PUNTO_COMA);
   }
 
+//FUNCION PARA HACER COMPARACIONES ENTRE VARAIBLES (CONDICION)
   final public void comparacionLogica() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case NOT:{

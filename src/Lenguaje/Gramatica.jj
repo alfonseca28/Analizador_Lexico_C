@@ -131,9 +131,9 @@ void Programa ():{}
 (Librerias())+
 <MAIN>
 <PARENTESIS_APERTURA>
-<PARENTESIS_APERTURA>
+<PARENTESIS_CIERRE>
 <LLAVE_APERTURA>
-Bloque()
+Bloque() //sentencias que pueden estar formadas por operaiones
 <RETURN>
 <NUMEROS>
 <PUNTO_COMA>
@@ -187,18 +187,19 @@ void Declaraciones():{}
 <PUNTO_COMA>
 }
 
-
-
+//ASIGNAR VAORES A LAS VARIABLES
 void asignacionAritmetica() : {}
 {
 <NOMBREVAR>(<ASIGNAR>|<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)operacion()<PUNTO_COMA>
 }
 
+//REALIZAR OPERACIONES
 void operacion() : {}
 {
 ( <NUMEROS>|<NOMBREVAR>)((<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)(<NUMEROS>|<NOMBREVAR>))*
 }
 
+//INCREMENTAR O DECREMENTAR
 void incrementoDecremento():{}
 {
 //OPERANDO
@@ -209,16 +210,19 @@ void incrementoDecremento():{}
 
 }
 
+//FUNCION PARA IMPRIMIR
 void Impresion():{}
 {
 <PRINTF><PARENTESIS_APERTURA><CADENA>(<COMA><NOMBREVAR>)*<PARENTESIS_CIERRE><PUNTO_COMA>
 }
 
+//FUNCION PARA LEER O ESCANEAR DATOS DE ENTRADA
 void Lectura():{}
 {
 <SCANF><PARENTESIS_APERTURA><CADENA><COMA><AMPERSAND><NOMBREVAR><PARENTESIS_CIERRE><PUNTO_COMA>
 }
 
+//FUNCION PARA HACER COMPARACIONES ENTRE VARAIBLES (CONDICION)
 void comparacionLogica():{}
 {
 

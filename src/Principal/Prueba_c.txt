@@ -8,8 +8,13 @@ N numero hamburguesas,las cuales pueden ser de diferentes tipos, entonces ¿cuan
 #include <stdlib.h>
 
 main(){
-    int forma_de_pago, i, n, tipo_de_hamburguesa;
-    float cargo, costo, pago;
+    int forma_de_pago;
+    int i;
+    int n;
+    int tipo_de_hamburguesa;
+    float cargo;
+    float costo;
+    float pago;
     pago = 0;
     printf ("Cuantas hamburguesas va a comprar:");
     scanf ("%d", &n);
@@ -23,37 +28,31 @@ main(){
         printf ("3=Triple");
 
         do{
-
             scanf ("%d", &tipo_de_hamburguesa);
-            if (tipo_de_hamburguesa<1||tipo_de_hamburguesa>3)
-			printf ("Valor incorrecto. Ingreselo nuevamente: ");
-
+            if (tipo_de_hamburguesa<1||tipo_de_hamburguesa>3){
+                printf ("Valor incorrecto. Ingreselo nuevamente: ");
+            }
         }while (tipo_de_hamburguesa<1||tipo_de_hamburguesa>3);
 
         costo=0;
-        if(tipo_de_hamburguesa==1)
+        if(tipo_de_hamburguesa==1){
             costo=20;
-        if(tipo_de_hamburguesa==2)
+        }
+        if(tipo_de_hamburguesa==2){
             costo=25;
-        if(tipo_de_hamburguesa==3)
+        }
+        if(tipo_de_hamburguesa==3){
             costo=28;
-
+        }
 	        printf ("Seleccione el valor de forma de pago:");
 	        printf ("1=Efectivo");
-	        printf ("2=Tarjeta");
-        
+	        printf ("2=Tarjeta");        
         do{
-
             scanf ("%d", &forma_de_pago);
-            if (forma_de_pago<1||forma_de_pago>2)
+            if (forma_de_pago<1||forma_de_pago>2){
                 printf ("Valor incorrecto. Ingreselo nuevamente.");
-
+            }
         }while (forma_de_pago<1||forma_de_pago>2);
-        
-        cargo=forma_de_pago==1!=0:costo*0.05;
-        pago=pago+costo+cargo;        
-        printf ("Valor de cargo: %.2f", cargo);
-        printf ("Valor de costo: %.2f", costo);
     }
     printf ("Valor de pago: %.2f pesos", pago);
 	return 0;

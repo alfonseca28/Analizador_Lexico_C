@@ -9,7 +9,7 @@ import java.io.FileReader;
  *
  * @author alfon
  */
-public class Principal {
+public class Analizador_Lexico {
 
     private static File Prueba_c;
     //se declara el metodo como privado para ocuparse en todo el cuerpo del programa, se le asigna un atributo de tipo File para hacer
@@ -39,6 +39,7 @@ public class Principal {
             //token delcarados en la gramatica
         } catch (FileNotFoundException f) {
             System.out.println("No se encontró el archivo, revisa si se renombró, movio de ubicación o eliminó");
+            //se pone para el catch una expecion para indicar que no encontro el archivo de prueba
         }
     }
 }
