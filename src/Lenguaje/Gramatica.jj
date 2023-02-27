@@ -1,13 +1,212 @@
 options{
-IGNORE_CASE = true;
-BUILD_PARSER = true;
-STATIC = false;
+
+LOOKAHEAD = 1;
 }
 
 PARSER_BEGIN(Gramatica)
-package Lenguaje;
-public class Gramatica{
+
+import java.util.*;
+import java.io.*;
+
+
+class Gramatica{
+
+    static ArrayList<String> nombreVariable = new ArrayList<String>(); 
+    static ArrayList<String> tipoDato = new ArrayList<String>(); 
+    static ArrayList<String> valorAlmacenado = new ArrayList<String>(); 
+    static ArrayList<String> erroresLexicos = new ArrayList<String>(); 
+    static ArrayList<String> erroresSintacticos = new ArrayList<String>(); 
+    static ArrayList<String> erroresSemanticos = new ArrayList<String>(); 
+    static ArrayList<String> colaOperacion = new ArrayList<String>();
+
+    static String nombreV ="";
+    static String tipoD ="";
+    static String valorV="nulo";
+    static boolean ident = false;
+    static boolean decAritmetica = false;   
+    static boolean asignacion_a = false;
+    
+    public static void main(String[] args )  throws FileNotFoundException {
+        
+    System.out.println("Ingresa el nombre del archivo que quieres analizar");
+    Scanner entrada = new Scanner (System.in);
+    String str = entrada.next();
+    
+    str+= ".txt";
+    FileReader file = new FileReader(str);
+    BufferedReader buffer = new BufferedReader (file);
+    Gramatica analizador = new Gramatica (buffer);
+        inicio(str,file,buffer,analizador);
+    }
+
+
+    static void inicio(String str,FileReader file, BufferedReader buffer,Gramatica analizador)throws FileNotFoundException {
+        try{
+            analizador.Programa();
+        }catch (ParseException e) {
+            Token t;
+            do {
+                t = getNextToken();
+                if(t.kind== EOF)break;
+            }while (t!=null && t.kind != EOF  );
+        }
+    
+        if(erroresLexicos.isEmpty() && erroresSintacticos.isEmpty() && erroresSemanticos.isEmpty()){
+            System.out.println("Ejecucion finalizada sin errores");
+        }
+        else{
+        
+            int ntotal = erroresLexicos.size()+erroresSemanticos.size()+erroresSintacticos.size();
+        
+            if(ntotal==1)    System.out.println("\nEjecucion finalizada con "+ntotal+" error " );
+            else    System.out.println("\nEjecucion finalizada con "+ntotal+" errores " );
+        
+            if(!erroresLexicos.isEmpty()){
+                System.out.println("");
+                if(erroresLexicos.size()==1) System.out.println("Se ha encontrado " +erroresLexicos.size() + " error lexico");
+                else System.out.println("Se han encontrado " +erroresLexicos.size() + " errores lexicos");
+
+                for (String impresion: erroresLexicos) {
+                    System.out.println(impresion);
+                }   
+            }
+
+            if(!erroresSintacticos.isEmpty()){
+                System.out.println("");
+                if(erroresSintacticos.size()==1) System.out.println("Se ha encontrado " +erroresSintacticos.size() + " error sintactico");
+
+                else System.out.println("Se han encontrado " +erroresSintacticos.size() + " errores sintacticos");
+            
+                System.out.println("");
+
+                for (String impresion: erroresSintacticos) {
+                    System.out.println(impresion);
+                }   
+            }
+    
+            if(!erroresSemanticos.isEmpty()){
+    
+                System.out.println("");
+                if(erroresSemanticos.size()==1) System.out.println("Se ha encontrado " +erroresSemanticos.size() + " error semantico");
+                else System.out.println("Se han encontrado " +erroresSemanticos.size() + " errores semanticos");
+
+                System.out.println(""); 
+
+                for (String impresion: erroresSemanticos) {
+                    System.out.println(impresion);
+                }   
+            } 
+        }
+    }
+
+    
+static void errorData(Token currentTokenVal,
+                        int[][] expectedTokenSequencesVal,
+                        String[] tokenImageVal){
+    String eol = System.getProperty("line.separator", "\n");
+    Token currentToken = currentTokenVal;
+    int [][] expectedTokenSequences = expectedTokenSequencesVal;
+    String[] tokenImage = tokenImageVal;
+    StringBuffer expected = new StringBuffer();
+    int maxSize = 0;
+    for (int i = 0; i < expectedTokenSequences.length; i++) {
+      if (maxSize < expectedTokenSequences[i].length) {
+        maxSize = expectedTokenSequences[i].length;
+      }
+      for (int j = 0; j < expectedTokenSequences[i].length; j++) {
+        expected.append(tokenImage[expectedTokenSequences[i][j]]).append(' ');
+      }
+      if (expectedTokenSequences[i][expectedTokenSequences[i].length - 1] != 0) {
+        expected.append("...");
+      }
+      expected.append(eol).append("    ");
+    }
+    
+  
+    if(currentToken.next.kind == 0)return;
+    
+    String retval = "";
+    
+    
+    retval+="Error Sintactico, ";
+    retval += "Se ha encontrado \"";
+    Token tok = currentToken.next;
+    for (int i = 0; i < maxSize; i++) {
+      if (i != 0) retval += " ";
+      if (tok.kind == 0) {
+        retval += tokenImage[0];
+        break;
+      }
+      retval += " " + tokenImage[tok.kind];
+      retval += " \"";
+      retval += add_escapes(tok.image);
+      retval += " \"";
+      tok = tok.next; 
+    }
+    retval += "\" en la linea " + currentToken.next.beginLine + ", columna " + currentToken.next.beginColumn;
+    retval += "." + eol;
+    if (expectedTokenSequences.length == 1) {
+      retval += "Se esperaba:" + eol + "    ";
+    } else {
+      retval += "Se esperaba:" + eol + "    ";
+    }
+    retval += expected.toString();
+
+    erroresSintacticos.add(retval);
+    }
+
+    static String add_escapes(String str) {
+      StringBuffer retval = new StringBuffer();
+      char ch;
+      for (int i = 0; i < str.length(); i++) {
+        switch (str.charAt(i))
+        {
+           case 0 :
+              continue;
+           case '\b':
+              retval.append("\\b");
+              continue;
+           case '\t':
+              retval.append("\\t");
+              continue;
+           case '\n':
+              retval.append("\\n");
+              continue;
+           case '\f':
+              retval.append("\\f");
+              continue;
+           case '\r':
+              retval.append("\\r");
+              continue;
+           case '\"':
+              retval.append("\\\"");
+              continue;
+           case '\'':
+              retval.append("\\\'");
+              continue;
+           case '\\':
+              retval.append("\\\\");
+              continue;
+           default:
+              if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
+                 String s = "0000" + Integer.toString(ch, 16);
+                 retval.append("\\u" + s.substring(s.length() - 4, s.length()));
+              } else {
+                 retval.append(ch);
+              }
+              continue;
+        }
+      }
+      return retval.toString();
+   
+    }
+
+
+
+
 }
+
+
 PARSER_END(Gramatica)
 
 //IGNORAR ESPACIOS EN BLANCO, SALTOS DE LINEA, RENGLONES, TABULACIONES Y COMENTARIOS
@@ -103,7 +302,7 @@ TOKEN: {
 
 //NOMBRE PARA VARIABLES
 TOKEN: {    
-    <NOMBREVAR:(["a"-"z"]|["A"-"Z"])(["a"-"z"]|["_"]|["0"-"9"]|[","])*>{System.out.println("NOMBREVAR -> " + image + "\n");}    
+    <NOMBREVAR:(["a"-"z"]|["A"-"Z"])(["a"-"z"]|["_"]|["0"-"9"])*>{System.out.println("NOMBREVAR -> " + image + "\n");}    
 }
 
 //CADENAS
@@ -126,162 +325,367 @@ TOKEN: {
 //aqui se van a crear funciones (expresiones regulares) mendiante javacc para que se analizen las
 //estructuras basicas del lenguaje (el lenguaje a analizar es c)
 
-void Programa ():{}
-{
-
-(Librerias())+
-<MAIN>
-<PARENTESIS_APERTURA>
-<PARENTESIS_CIERRE>
-<LLAVE_APERTURA>
-Bloque() //sentencias que pueden estar formadas por operaiones
-<RETURN>
-<NUMEROS>
-<PUNTO_COMA>
-<LLAVE_CIERRE>
-<EOF>
-
+void Programa ():{}{
+    (Librerias())+
+    <MAIN>
+    <PARENTESIS_APERTURA>
+    <PARENTESIS_CIERRE>
+    <LLAVE_APERTURA>
+    Bloque() //sentencias que pueden estar formadas por operaiones
+    <RETURN>
+    <NUMEROS>
+    <PUNTO_COMA>
+    <LLAVE_CIERRE>
+    <EOF>
 }
 
+//-----------------------------------------------------------------------------------------------------------------
 void Librerias():{}
 {
     <LIBRERIAS><NOMLIBRERIA>
 }
 
-void Bloque():{}
-{
-(Sentencias())*
+//-----------------------------------------------------------------------------------------------------------------
+
+void Bloque():{}{
+    (Sentencias())*
 }
 
-void Sentencias():{}
-{
-Declaraciones()
-|cicloWhile()
-|Impresion()
-|Lectura()
-|Cond_IF()
-|asignacionAritmetica()
-|cicloFor()
-|cicloDoWhile()
-|Swich()
+//-----------------------------------------------------------------------------------------------------------------
+
+void Sentencias():{}{
+    LOOKAHEAD(3)Declaraciones()
+    |cicloWhile()
+    |Impresion()
+    |Lectura()
+    |Cond_IF()
+    |asignacionAritmetica()
+    |cicloFor()
+    |cicloDoWhile()
+    |Swich()
 }
 
-void Declaraciones():{}
-{
-//TIPO DE DATO
-(<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>)
+//-----------------------------------------------------------------------------------------------------------------
 
-//NOMBRE DE LA VARIABLES
-<NOMBREVAR>
-
-//SIMBOLO 
-((<ASIGNAR>
-
-//VALOR
-(<NUMEROS>|<CADENA>))
-
-|
-//DECLARACION MULTIPLE
-(<COMA><NOMBREVAR><ASIGNAR>
-(<NOMBREVAR>|<NUMEROS>|<CADENA>)))*
-
-<PUNTO_COMA>
+void Declaraciones():{}{
+    
+    LOOKAHEAD(3)declaracionConValor()
+    |LOOKAHEAD(3)declaracionSimple()
+    |LOOKAHEAD(3)declaracionMultipleConValor()
+    |declaracionMultipleSimple()
 }
+//-----------------------------------------------------------------------------------------------------------------
 
-//ASIGNAR VALORES A LAS VARIABLES
-void asignacionAritmetica() : {}
-{
-<NOMBREVAR>(<ASIGNAR>|<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)operacion()<PUNTO_COMA>
-}
-
-//REALIZAR OPERACIONES
-void operacion() : {}
-{
-( <NUMEROS>|<NOMBREVAR>)((<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)(<NUMEROS>|<NOMBREVAR>))*
-}
-
-//INCREMENTAR O DECREMENTAR
-void incrementoDecremento():{}
-{
-//OPERANDO
-(<NOMBREVAR>)
-
-//SIGNO
-(<INCREMENTO>|<DECREMENTO>)
-
-}
-
-//FUNCION PARA IMPRIMIR
-void Impresion():{}
-{
-<PRINTF><PARENTESIS_APERTURA><CADENA>(<COMA><NOMBREVAR>)*<PARENTESIS_CIERRE><PUNTO_COMA>
-}
-
-//FUNCION PARA LEER O ESCANEAR DATOS DE ENTRADA
-void Lectura():{}
-{
-<SCANF><PARENTESIS_APERTURA><CADENA><COMA><AMPERSAND><NOMBREVAR><PARENTESIS_CIERRE><PUNTO_COMA>
-}
-
-//FUNCION PARA HACER COMPARACIONES ENTRE VARAIBLES (CONDICION)
-void comparacionLogica():{}
-{
-
-//PRIMER TERMINO 
-((<NOT>(<NOMBREVAR>|<NUMEROS>|<CADENA>))|<NOMBREVAR>|<NUMEROS>|<CADENA>)
-
-
-//OPERADOR
-((<IGUAL>|<DIFERENTE>|<MENOR>|<MAYOR>|<MENOR_IGUAL>|<MAYOR_IGUAL>|<AND>|<OR>)
-
-
-//SEGUNDO TERMINO
-((<NOT>(<NOMBREVAR>|<NUMEROS>|<CADENA>))|<NOMBREVAR>|<NUMEROS>|<CADENA>))*
+void declaracionSimple():{}{
+    try{
+        //TIPO DE DATO
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR>delimiter()
+    }catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != INT && t.kind != FLOAT && t.kind != CHAR && t.kind != SHORT &&  t.kind != DOUBLE 
+        && t.kind != VOID && t.kind != BOOLEAN && t!=null && t.kind != EOF );
+    }
 }
 
 
-void Cond_IF():{}{
-<IF><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+//-----------------------------------------------------------------------------------------------------------------
 
+void declaracionConValor():{}{
+    try{
+        //TIPO DE DATO
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR><ASIGNAR>
+    }catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != INT && t.kind != FLOAT && t.kind != CHAR && t.kind != SHORT &&  t.kind != DOUBLE 
+        && t.kind != VOID && t.kind != BOOLEAN && t!=null && t.kind != EOF );
+    }
 
-
-//ELSEIF
-(LOOKAHEAD(2)(<ELSE><IF><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>))*
-(LOOKAHEAD(2)(<ELSE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>))*
-}
-
-void cicloFor() : {}
-{
-
-<FOR><PARENTESIS_APERTURA><NOMBREVAR><ASIGNAR><NUMEROS><PUNTO_COMA><NOMBREVAR>
-
-//OPERADOR LOGICO
-(<MENOR>|<MAYOR>|<MENOR_IGUAL>|<MAYOR_IGUAL>|<IGUAL>|<DIFERENTE>)(<NUMEROS>|<NOMBREVAR>)<PUNTO_COMA>
-
-
-//PASO
-<NOMBREVAR>(<INCREMENTO>|<DECREMENTO>)
-<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
-
-}
-
-void cicloWhile() : {}
-{
-<WHILE><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
-}
-
-
-void cicloDoWhile():{}
-{
-<DO> <LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE><WHILE><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><PUNTO_COMA>
+    try{
+        (<NUMEROS>|<CADENA>|<NOMBREVAR>)
+    }
+    catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != NUMEROS && t.kind != CADENA && t.kind != NOMBREVAR 
+        && t.kind != VOID && t!=null && t.kind != EOF );
+    }
+    delimiter()
 }
 
 
-void Swich() :{}{
-<SWITCH><PARENTESIS_APERTURA><NOMBREVAR><PARENTESIS_CIERRE><LLAVE_APERTURA>
+//-----------------------------------------------------------------------------------------------------------------
 
-(<CASE><NUMEROS><DOS_PUNTOS>(Sentencias())*<BREAK><PUNTO_COMA>)+
-
-<LLAVE_CIERRE>
-
+void declaracionMultipleSimple() : {}{
+    try{
+        //TIPO DE DATO
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR>(<COMA><NOMBREVAR>)*delimiter()
+    }catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != INT && t.kind != FLOAT && t.kind != CHAR && t.kind != SHORT &&  t.kind != DOUBLE 
+        && t.kind != VOID && t.kind != BOOLEAN && t!=null && t.kind != EOF);
+    }
 }
+
+
+//-----------------------------------------------------------------------------------------------------------------
+
+void declaracionMultipleConValor() : {}{
+    try{
+        //TIPO DE DATO
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)
+    }catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != INT && t.kind != FLOAT && t.kind != CHAR && t.kind != SHORT &&  t.kind != DOUBLE 
+        && t.kind != VOID && t.kind != BOOLEAN && t!=null && t.kind != EOF );
+    }
+
+    try{
+        <NOMBREVAR><ASIGNAR>(<NUMEROS>|<CADENA>|<NOMBREVAR>)(<COMA><NOMBREVAR><ASIGNAR>(<NUMEROS>|<CADENA>|<NOMBREVAR>))*
+    }
+    catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != NUMEROS && t.kind != CADENA && t.kind != NOMBREVAR 
+        && t.kind != VOID && t!=null && t.kind != EOF );
+    }
+    delimiter()
+}
+
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    //ASIGNAR VALORES A LAS VARIABLES
+    void asignacionAritmetica() : {}{
+        try{
+            <NOMBREVAR><ASIGNAR>operacion()delimiter()
+        }catch(ParseException e){
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            } 
+            while (t.kind != ASIGNAR && t.kind != NOMBREVAR 
+            && t.kind != VOID && t!=null && t.kind != EOF );
+        }
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    //REALIZAR OPERACIONES
+    void operacion() : {}{
+        try{
+            (<NUMEROS>|<NOMBREVAR>)((<SUMA>|<RESTA>|<MULTIPLICACION>|<DIVISION>|<MODULO>)(<NUMEROS>|<NOMBREVAR>))*
+        }catch(ParseException e){
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            } 
+            while (t.kind != NUMEROS && t.kind != NOMBREVAR && t.kind != SUMA && t.kind != RESTA && t.kind != MULTIPLICACION 
+            && t.kind != DIVISION && t.kind != MODULO && t.kind != VOID && t!=null && t.kind != EOF );
+        }
+       
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    //INCREMENTAR O DECREMENTAR
+void incrementoDecremento():{}{
+    //OPERANDO}
+    try{
+        (<NOMBREVAR>)
+    }catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != NOMBREVAR);
+    }
+    
+    //SIGNO
+    try{
+        (<INCREMENTO>|<DECREMENTO>)
+    }catch(ParseException e){
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } 
+        while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != INCREMENTO && t.kind != DECREMENTO);
+    }
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    //FUNCION PARA IMPRIMIR
+    void Impresion():{}{
+        try{
+            <PRINTF><PARENTESIS_APERTURA><CADENA>(<COMA><NOMBREVAR>)*<PARENTESIS_CIERRE>delimiter()
+        }catch(ParseException e){
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            } 
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != PRINTF && t.kind != PARENTESIS_APERTURA
+            && t.kind != CADENA && t.kind != COMA && t.kind != NOMBREVAR && t.kind != PARENTESIS_CIERRE);
+        }
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    //FUNCION PARA LEER O ESCANEAR DATOS DE ENTRADA
+    void Lectura():{}{
+        try{
+            <SCANF><PARENTESIS_APERTURA><CADENA><COMA><AMPERSAND><NOMBREVAR><PARENTESIS_CIERRE>delimiter()
+        }catch(ParseException e){
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            } 
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != SCANF && t.kind != PARENTESIS_APERTURA
+            && t.kind != CADENA && t.kind != COMA && t.kind != NOMBREVAR && t.kind != PARENTESIS_CIERRE
+            && t.kind != AMPERSAND);
+        }    
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    //FUNCION PARA HACER COMPARACIONES ENTRE VARAIBLES (CONDICION)
+    void comparacionLogica():{}{
+        try{
+            //PRIMER TERMINO 
+            ((<NOT>(<NOMBREVAR>|<NUMEROS>|<CADENA>))|<NOMBREVAR>|<NUMEROS>|<CADENA>)
+        }catch(ParseException e){
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            } 
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != NOT && t.kind != NOMBREVAR
+            && t.kind != NUMEROS && t.kind != CADENA);
+        }
+
+        
+        try{
+            //OPERADOR
+        ((<IGUAL>|<DIFERENTE>|<MENOR>|<MAYOR>|<MENOR_IGUAL>|<MAYOR_IGUAL>|<AND>|<OR>)
+        }catch(ParseException e){
+
+        }
+        
+        try{
+            //SEGUNDO TERMINO
+            ((<NOT>(<NOMBREVAR>|<NUMEROS>|<CADENA>))|<NOMBREVAR>|<NUMEROS>|<CADENA>))*
+        }catch(ParseException e){
+            
+        }
+        
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+
+    void Cond_IF():{}{
+    <IF><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+
+
+
+    //ELSEIF
+    (LOOKAHEAD(2)(<ELSE><IF><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>))*
+    (LOOKAHEAD(2)(<ELSE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>))*
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    void cicloFor() : {}
+    {
+
+    <FOR><PARENTESIS_APERTURA><NOMBREVAR><ASIGNAR><NUMEROS><PUNTO_COMA><NOMBREVAR>
+
+    //OPERADOR LOGICO
+    (<MENOR>|<MAYOR>|<MENOR_IGUAL>|<MAYOR_IGUAL>|<IGUAL>|<DIFERENTE>)(<NUMEROS>|<NOMBREVAR>)delimiter()
+
+
+    //PASO
+    <NOMBREVAR>(<INCREMENTO>|<DECREMENTO>)
+    <PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    void cicloWhile() : {}
+    {
+    <WHILE><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE><LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE>
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    void cicloDoWhile():{}
+    {
+    <DO> <LLAVE_APERTURA>(Sentencias())*<LLAVE_CIERRE><WHILE><PARENTESIS_APERTURA>comparacionLogica()<PARENTESIS_CIERRE>delimiter()
+    }
+
+//-----------------------------------------------------------------------------------------------------------------
+
+    void Swich() :{}{
+    <SWITCH><PARENTESIS_APERTURA><NOMBREVAR><PARENTESIS_CIERRE><LLAVE_APERTURA>
+
+    (<CASE><NUMEROS><DOS_PUNTOS>(Sentencias())*<BREAK>delimiter())+
+
+    <LLAVE_CIERRE>
+
+    }
+
+//-------------------------------------------------------------------------------------------------------------------
+
+void delimiter() :{}{
+    try {
+        <PUNTO_COMA> 
+    }catch (ParseException e) {        
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        } while (t.kind != PUNTO_COMA && t!=null && t.kind != EOF );
+    }
+    }

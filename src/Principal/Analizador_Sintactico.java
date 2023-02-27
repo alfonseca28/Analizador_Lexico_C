@@ -19,7 +19,7 @@ public class Analizador_Sintactico {
     //en el main se le pasan los parametros habituales y tambien se declara de tipo excpetion para que este encuentre errores en
     //el o los parser generados por javacc y declarados en el archivo compilado de la gramatica
 
-        Prueba_c = new File("D:\\NetBeansProjects\\Analizador_Lexico_c\\src\\Principal\\Prueba_c.txt");
+        Prueba_c = new File("D:\\Documentos HDD\\Escuela\\Programacion\\NetBeansProjects\\Analizador_Lexico_C\\src\\Principal\\Prueba_c.txt");
         //objeto de tipo file, con la ruta que contiene el archivo de prueba para analizar
         try {
             //se trabaja con sentencias completas (sintaxis regex), esto haciendo enfasis en las expresiones regulares

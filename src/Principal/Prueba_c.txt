@@ -9,7 +9,7 @@ N numero hamburguesas,las cuales pueden ser de diferentes tipos, entonces ¿cuan
 
 main(){
     int forma_de_pago;
-    int i;
+    int i = 44,;
     int n;
     int tipo_de_hamburguesa;
     float cargo;
