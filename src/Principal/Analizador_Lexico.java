@@ -1,12 +1,12 @@
 package Principal;
 
 import Lenguaje.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 /**
- *
  * @author alfon
  */
 public class Analizador_Lexico {
@@ -16,10 +16,13 @@ public class Analizador_Lexico {
     //referencia al archivo de prueba "Prueba_c.txt" que es cual se va a analizar al momento de ejecutar el programa
 
     public static void main(String[] args) throws ParseException {
-    //en el main se le pasan los parametros habituales y tambien se declara de tipo excpetion para que este encuentre errores en
-    //el o los parser generados por javacc y declarados en el archivo compilado de la gramatica
+        //en el main se le pasan los parametros habituales y tambien se declara de tipo excpetion para que este encuentre errores en
+        //el o los parser generados por javacc y declarados en el archivo compilado de la gramatica
 
-        Prueba_c = new File("D:\\NetBeansProjects\\Analizador_Lexico_c\\src\\Principal\\Prueba_c.txt");
+        //PARA EJECUTAR EN WINDOWS DESCOMENTAR LA LINEA DE CODIGO SIGUIENTE Y SIGUIENDO ESE MISMO FORMATO, ESCRIBIR LA RUTA DONDE SE ENCUENTRE EL ARCHIVO DE PRUEBA
+        //Prueba_c = new File("D:\\NetBeansProjects\\Analizador_Lexico_c\\src\\Principal\\Prueba_c.txt");
+        //PARA EJECUTAR EN LINUX DESCOMENTAR LA LINEA DE CODIGO SIGUIENTE Y SIGUIENDO ESE MISMO FORMATO, ESCRIBIR LA RUTA DONDE SE ENCUENTRE EL ARCHIVO DE PRUEBA
+        Prueba_c = new File("/home/alfonseca/IdeaProjects/Analizador_Lexico_C/src/Principal/Prueba_c.txt");
         //objeto de tipo file, con la ruta que contiene el archivo de prueba para analizar
         try {
             GramaticaTokenManager Gramatica_c = new GramaticaTokenManager(new SimpleCharStream(new FileReader(Prueba_c)));
