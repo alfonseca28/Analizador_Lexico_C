@@ -857,30 +857,262 @@ static void errorData(Token currentTokenVal,
             while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != NOT && t.kind != NOMBREVAR
             && t.kind != NUMEROS && t.kind != CADENA);
     }
-    label_7:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IGUAL:
-      case DIFERENTE:
-      case MENOR:
-      case MAYOR:
-      case MENOR_IGUAL:
-      case MAYOR_IGUAL:
-      case AND:
-      case OR:
-        ;
-        break;
-      default:
-        jj_la1[21] = jj_gen;
-        break label_7;
+    try {
+      label_7:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case IGUAL:
+        case DIFERENTE:
+        case MENOR:
+        case MAYOR:
+        case MENOR_IGUAL:
+        case MAYOR_IGUAL:
+        case AND:
+        case OR:
+          ;
+          break;
+        default:
+          jj_la1[21] = jj_gen;
+          break label_7;
+        }
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case IGUAL:
+          jj_consume_token(IGUAL);
+          break;
+        case DIFERENTE:
+          jj_consume_token(DIFERENTE);
+          break;
+        case MENOR:
+          jj_consume_token(MENOR);
+          break;
+        case MAYOR:
+          jj_consume_token(MAYOR);
+          break;
+        case MENOR_IGUAL:
+          jj_consume_token(MENOR_IGUAL);
+          break;
+        case MAYOR_IGUAL:
+          jj_consume_token(MAYOR_IGUAL);
+          break;
+        case AND:
+          jj_consume_token(AND);
+          break;
+        case OR:
+          jj_consume_token(OR);
+          break;
+        default:
+          jj_la1[22] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case NOT:
+          jj_consume_token(NOT);
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case NOMBREVAR:
+            jj_consume_token(NOMBREVAR);
+            break;
+          case NUMEROS:
+            jj_consume_token(NUMEROS);
+            break;
+          case CADENA:
+            jj_consume_token(CADENA);
+            break;
+          default:
+            jj_la1[23] = jj_gen;
+            jj_consume_token(-1);
+            throw new ParseException();
+          }
+          break;
+        case NOMBREVAR:
+          jj_consume_token(NOMBREVAR);
+          break;
+        case NUMEROS:
+          jj_consume_token(NUMEROS);
+          break;
+        case CADENA:
+          jj_consume_token(CADENA);
+          break;
+        default:
+          jj_la1[24] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
       }
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != NOT && t.kind != NOMBREVAR
+            && t.kind != NUMEROS && t.kind != CADENA);
+    }
+  }
+
+//-----------------------------------------------------------------------------------------------------------------
+  static final public void Cond_IF() throws ParseException {
+    try {
+      jj_consume_token(IF);
+      jj_consume_token(PARENTESIS_APERTURA);
+      comparacionLogica();
+      jj_consume_token(PARENTESIS_CIERRE);
+      jj_consume_token(LLAVE_APERTURA);
+      label_8:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case INT:
+        case FLOAT:
+        case CHAR:
+        case BOOLEAN:
+        case SHORT:
+        case STRING:
+        case DOUBLE:
+        case VOID:
+        case FOR:
+        case WHILE:
+        case DO:
+        case IF:
+        case SWITCH:
+        case SCANF:
+        case PRINTF:
+        case NOMBREVAR:
+          ;
+          break;
+        default:
+          jj_la1[25] = jj_gen;
+          break label_8;
+        }
+        Sentencias();
+      }
+      jj_consume_token(LLAVE_CIERRE);
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != IF && t.kind != PARENTESIS_APERTURA
+            && t.kind != PARENTESIS_CIERRE && t.kind != LLAVE_APERTURA && t.kind != LLAVE_CIERRE);
+    }
+    try {
+      label_9:
+      while (true) {
+        if (jj_2_5(2)) {
+          ;
+        } else {
+          break label_9;
+        }
+        jj_consume_token(ELSE);
+        jj_consume_token(IF);
+        jj_consume_token(PARENTESIS_APERTURA);
+        comparacionLogica();
+        jj_consume_token(PARENTESIS_CIERRE);
+        jj_consume_token(LLAVE_APERTURA);
+        label_10:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case INT:
+          case FLOAT:
+          case CHAR:
+          case BOOLEAN:
+          case SHORT:
+          case STRING:
+          case DOUBLE:
+          case VOID:
+          case FOR:
+          case WHILE:
+          case DO:
+          case IF:
+          case SWITCH:
+          case SCANF:
+          case PRINTF:
+          case NOMBREVAR:
+            ;
+            break;
+          default:
+            jj_la1[26] = jj_gen;
+            break label_10;
+          }
+          Sentencias();
+        }
+        jj_consume_token(LLAVE_CIERRE);
+      }
+      label_11:
+      while (true) {
+        if (jj_2_6(2)) {
+          ;
+        } else {
+          break label_11;
+        }
+        jj_consume_token(ELSE);
+        jj_consume_token(LLAVE_APERTURA);
+        label_12:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case INT:
+          case FLOAT:
+          case CHAR:
+          case BOOLEAN:
+          case SHORT:
+          case STRING:
+          case DOUBLE:
+          case VOID:
+          case FOR:
+          case WHILE:
+          case DO:
+          case IF:
+          case SWITCH:
+          case SCANF:
+          case PRINTF:
+          case NOMBREVAR:
+            ;
+            break;
+          default:
+            jj_la1[27] = jj_gen;
+            break label_12;
+          }
+          Sentencias();
+        }
+        jj_consume_token(LLAVE_CIERRE);
+      }
+    } catch (ParseException e) {
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
+        }
+        while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != IF && t.kind != PARENTESIS_APERTURA
+        && t.kind != PARENTESIS_CIERRE && t.kind != LLAVE_APERTURA && t.kind != LLAVE_CIERRE
+        && t.kind != ELSE);
+    }
+  }
+
+//-----------------------------------------------------------------------------------------------------------------
+  static final public void cicloFor() throws ParseException {
+    try {
+      jj_consume_token(FOR);
+      jj_consume_token(PARENTESIS_APERTURA);
+      jj_consume_token(NOMBREVAR);
+      jj_consume_token(ASIGNAR);
+      jj_consume_token(NUMEROS);
+      delimiter();
+      jj_consume_token(NOMBREVAR);
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != FOR && t.kind != PARENTESIS_APERTURA
+            && t.kind != NOMBREVAR && t.kind != ASIGNAR && t.kind != NUMEROS);
+    }
+    try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case IGUAL:
-        jj_consume_token(IGUAL);
-        break;
-      case DIFERENTE:
-        jj_consume_token(DIFERENTE);
-        break;
       case MENOR:
         jj_consume_token(MENOR);
         break;
@@ -893,102 +1125,58 @@ static void errorData(Token currentTokenVal,
       case MAYOR_IGUAL:
         jj_consume_token(MAYOR_IGUAL);
         break;
-      case AND:
-        jj_consume_token(AND);
+      case IGUAL:
+        jj_consume_token(IGUAL);
         break;
-      case OR:
-        jj_consume_token(OR);
+      case DIFERENTE:
+        jj_consume_token(DIFERENTE);
         break;
       default:
-        jj_la1[22] = jj_gen;
+        jj_la1[28] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case NOT:
-        jj_consume_token(NOT);
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case NOMBREVAR:
-          jj_consume_token(NOMBREVAR);
-          break;
-        case NUMEROS:
-          jj_consume_token(NUMEROS);
-          break;
-        case CADENA:
-          jj_consume_token(CADENA);
-          break;
-        default:
-          jj_la1[23] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
+      case NUMEROS:
+        jj_consume_token(NUMEROS);
         break;
       case NOMBREVAR:
         jj_consume_token(NOMBREVAR);
         break;
-      case NUMEROS:
-        jj_consume_token(NUMEROS);
-        break;
-      case CADENA:
-        jj_consume_token(CADENA);
-        break;
       default:
-        jj_la1[24] = jj_gen;
+        jj_la1[29] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
+      delimiter();
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != MENOR && t.kind != MAYOR
+            && t.kind != MENOR_IGUAL && t.kind != MAYOR_IGUAL && t.kind != IGUAL && t.kind != DIFERENTE
+            && t.kind != NUMEROS && t.kind != NOMBREVAR);
     }
-  }
-
-//-----------------------------------------------------------------------------------------------------------------
-  static final public void Cond_IF() throws ParseException {
-    jj_consume_token(IF);
-    jj_consume_token(PARENTESIS_APERTURA);
-    comparacionLogica();
-    jj_consume_token(PARENTESIS_CIERRE);
-    jj_consume_token(LLAVE_APERTURA);
-    label_8:
-    while (true) {
+    try {
+      jj_consume_token(NOMBREVAR);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case INT:
-      case FLOAT:
-      case CHAR:
-      case BOOLEAN:
-      case SHORT:
-      case STRING:
-      case DOUBLE:
-      case VOID:
-      case FOR:
-      case WHILE:
-      case DO:
-      case IF:
-      case SWITCH:
-      case SCANF:
-      case PRINTF:
-      case NOMBREVAR:
-        ;
+      case INCREMENTO:
+        jj_consume_token(INCREMENTO);
+        break;
+      case DECREMENTO:
+        jj_consume_token(DECREMENTO);
         break;
       default:
-        jj_la1[25] = jj_gen;
-        break label_8;
+        jj_la1[30] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
       }
-      Sentencias();
-    }
-    jj_consume_token(LLAVE_CIERRE);
-    label_9:
-    while (true) {
-      if (jj_2_5(2)) {
-        ;
-      } else {
-        break label_9;
-      }
-      jj_consume_token(ELSE);
-      jj_consume_token(IF);
-      jj_consume_token(PARENTESIS_APERTURA);
-      comparacionLogica();
       jj_consume_token(PARENTESIS_CIERRE);
       jj_consume_token(LLAVE_APERTURA);
-      label_10:
+      label_13:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case INT:
@@ -1010,233 +1198,34 @@ static void errorData(Token currentTokenVal,
           ;
           break;
         default:
-          jj_la1[26] = jj_gen;
-          break label_10;
+          jj_la1[31] = jj_gen;
+          break label_13;
         }
         Sentencias();
       }
       jj_consume_token(LLAVE_CIERRE);
-    }
-    label_11:
-    while (true) {
-      if (jj_2_6(2)) {
-        ;
-      } else {
-        break label_11;
-      }
-      jj_consume_token(ELSE);
-      jj_consume_token(LLAVE_APERTURA);
-      label_12:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case INT:
-        case FLOAT:
-        case CHAR:
-        case BOOLEAN:
-        case SHORT:
-        case STRING:
-        case DOUBLE:
-        case VOID:
-        case FOR:
-        case WHILE:
-        case DO:
-        case IF:
-        case SWITCH:
-        case SCANF:
-        case PRINTF:
-        case NOMBREVAR:
-          ;
-          break;
-        default:
-          jj_la1[27] = jj_gen;
-          break label_12;
+    } catch (ParseException e) {
+        Token t;
+        errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+        System.out.println("");
+        do {
+            t = getNextToken();
         }
-        Sentencias();
-      }
-      jj_consume_token(LLAVE_CIERRE);
+        while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != INCREMENTO && t.kind != DECREMENTO
+        && t.kind != PARENTESIS_CIERRE && t.kind != LLAVE_APERTURA && t.kind != LLAVE_CIERRE
+        && t.kind != NUMEROS && t.kind != NOMBREVAR);
     }
-  }
-
-//-----------------------------------------------------------------------------------------------------------------
-  static final public void cicloFor() throws ParseException {
-    jj_consume_token(FOR);
-    jj_consume_token(PARENTESIS_APERTURA);
-    jj_consume_token(NOMBREVAR);
-    jj_consume_token(ASIGNAR);
-    jj_consume_token(NUMEROS);
-    jj_consume_token(PUNTO_COMA);
-    jj_consume_token(NOMBREVAR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case MENOR:
-      jj_consume_token(MENOR);
-      break;
-    case MAYOR:
-      jj_consume_token(MAYOR);
-      break;
-    case MENOR_IGUAL:
-      jj_consume_token(MENOR_IGUAL);
-      break;
-    case MAYOR_IGUAL:
-      jj_consume_token(MAYOR_IGUAL);
-      break;
-    case IGUAL:
-      jj_consume_token(IGUAL);
-      break;
-    case DIFERENTE:
-      jj_consume_token(DIFERENTE);
-      break;
-    default:
-      jj_la1[28] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case NUMEROS:
-      jj_consume_token(NUMEROS);
-      break;
-    case NOMBREVAR:
-      jj_consume_token(NOMBREVAR);
-      break;
-    default:
-      jj_la1[29] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-    delimiter();
-    jj_consume_token(NOMBREVAR);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case INCREMENTO:
-      jj_consume_token(INCREMENTO);
-      break;
-    case DECREMENTO:
-      jj_consume_token(DECREMENTO);
-      break;
-    default:
-      jj_la1[30] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
-    }
-    jj_consume_token(PARENTESIS_CIERRE);
-    jj_consume_token(LLAVE_APERTURA);
-    label_13:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case INT:
-      case FLOAT:
-      case CHAR:
-      case BOOLEAN:
-      case SHORT:
-      case STRING:
-      case DOUBLE:
-      case VOID:
-      case FOR:
-      case WHILE:
-      case DO:
-      case IF:
-      case SWITCH:
-      case SCANF:
-      case PRINTF:
-      case NOMBREVAR:
-        ;
-        break;
-      default:
-        jj_la1[31] = jj_gen;
-        break label_13;
-      }
-      Sentencias();
-    }
-    jj_consume_token(LLAVE_CIERRE);
   }
 
 //-----------------------------------------------------------------------------------------------------------------
   static final public void cicloWhile() throws ParseException {
-    jj_consume_token(WHILE);
-    jj_consume_token(PARENTESIS_APERTURA);
-    comparacionLogica();
-    jj_consume_token(PARENTESIS_CIERRE);
-    jj_consume_token(LLAVE_APERTURA);
-    label_14:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case INT:
-      case FLOAT:
-      case CHAR:
-      case BOOLEAN:
-      case SHORT:
-      case STRING:
-      case DOUBLE:
-      case VOID:
-      case FOR:
-      case WHILE:
-      case DO:
-      case IF:
-      case SWITCH:
-      case SCANF:
-      case PRINTF:
-      case NOMBREVAR:
-        ;
-        break;
-      default:
-        jj_la1[32] = jj_gen;
-        break label_14;
-      }
-      Sentencias();
-    }
-    jj_consume_token(LLAVE_CIERRE);
-  }
-
-//-----------------------------------------------------------------------------------------------------------------
-  static final public void cicloDoWhile() throws ParseException {
-    jj_consume_token(DO);
-    jj_consume_token(LLAVE_APERTURA);
-    label_15:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case INT:
-      case FLOAT:
-      case CHAR:
-      case BOOLEAN:
-      case SHORT:
-      case STRING:
-      case DOUBLE:
-      case VOID:
-      case FOR:
-      case WHILE:
-      case DO:
-      case IF:
-      case SWITCH:
-      case SCANF:
-      case PRINTF:
-      case NOMBREVAR:
-        ;
-        break;
-      default:
-        jj_la1[33] = jj_gen;
-        break label_15;
-      }
-      Sentencias();
-    }
-    jj_consume_token(LLAVE_CIERRE);
-    jj_consume_token(WHILE);
-    jj_consume_token(PARENTESIS_APERTURA);
-    comparacionLogica();
-    jj_consume_token(PARENTESIS_CIERRE);
-    delimiter();
-  }
-
-//-----------------------------------------------------------------------------------------------------------------
-  static final public void Swich() throws ParseException {
-    jj_consume_token(SWITCH);
-    jj_consume_token(PARENTESIS_APERTURA);
-    jj_consume_token(NOMBREVAR);
-    jj_consume_token(PARENTESIS_CIERRE);
-    jj_consume_token(LLAVE_APERTURA);
-    label_16:
-    while (true) {
-      jj_consume_token(CASE);
-      jj_consume_token(NUMEROS);
-      jj_consume_token(DOS_PUNTOS);
-      label_17:
+    try {
+      jj_consume_token(WHILE);
+      jj_consume_token(PARENTESIS_APERTURA);
+      comparacionLogica();
+      jj_consume_token(PARENTESIS_CIERRE);
+      jj_consume_token(LLAVE_APERTURA);
+      label_14:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case INT:
@@ -1258,23 +1247,137 @@ static void errorData(Token currentTokenVal,
           ;
           break;
         default:
-          jj_la1[34] = jj_gen;
-          break label_17;
+          jj_la1[32] = jj_gen;
+          break label_14;
         }
         Sentencias();
       }
-      jj_consume_token(BREAK);
-      delimiter();
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case CASE:
-        ;
-        break;
-      default:
-        jj_la1[35] = jj_gen;
-        break label_16;
-      }
+      jj_consume_token(LLAVE_CIERRE);
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != WHILE && t.kind != PARENTESIS_APERTURA
+            && t.kind != PARENTESIS_CIERRE && t.kind != LLAVE_APERTURA && t.kind != LLAVE_CIERRE);
     }
-    jj_consume_token(LLAVE_CIERRE);
+  }
+
+//-----------------------------------------------------------------------------------------------------------------
+  static final public void cicloDoWhile() throws ParseException {
+    try {
+      jj_consume_token(DO);
+      jj_consume_token(LLAVE_APERTURA);
+      label_15:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case INT:
+        case FLOAT:
+        case CHAR:
+        case BOOLEAN:
+        case SHORT:
+        case STRING:
+        case DOUBLE:
+        case VOID:
+        case FOR:
+        case WHILE:
+        case DO:
+        case IF:
+        case SWITCH:
+        case SCANF:
+        case PRINTF:
+        case NOMBREVAR:
+          ;
+          break;
+        default:
+          jj_la1[33] = jj_gen;
+          break label_15;
+        }
+        Sentencias();
+      }
+      jj_consume_token(LLAVE_CIERRE);
+      jj_consume_token(WHILE);
+      jj_consume_token(PARENTESIS_APERTURA);
+      comparacionLogica();
+      jj_consume_token(PARENTESIS_CIERRE);
+      delimiter();
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != WHILE && t.kind != PARENTESIS_APERTURA
+            && t.kind != PARENTESIS_CIERRE && t.kind != LLAVE_APERTURA && t.kind != LLAVE_CIERRE && t.kind != DO);
+    }
+  }
+
+//-----------------------------------------------------------------------------------------------------------------
+  static final public void Swich() throws ParseException {
+    try {
+      jj_consume_token(SWITCH);
+      jj_consume_token(PARENTESIS_APERTURA);
+      jj_consume_token(NOMBREVAR);
+      jj_consume_token(PARENTESIS_CIERRE);
+      jj_consume_token(LLAVE_APERTURA);
+      label_16:
+      while (true) {
+        jj_consume_token(CASE);
+        jj_consume_token(NUMEROS);
+        jj_consume_token(DOS_PUNTOS);
+        label_17:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case INT:
+          case FLOAT:
+          case CHAR:
+          case BOOLEAN:
+          case SHORT:
+          case STRING:
+          case DOUBLE:
+          case VOID:
+          case FOR:
+          case WHILE:
+          case DO:
+          case IF:
+          case SWITCH:
+          case SCANF:
+          case PRINTF:
+          case NOMBREVAR:
+            ;
+            break;
+          default:
+            jj_la1[34] = jj_gen;
+            break label_17;
+          }
+          Sentencias();
+        }
+        jj_consume_token(BREAK);
+        delimiter();
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case CASE:
+          ;
+          break;
+        default:
+          jj_la1[35] = jj_gen;
+          break label_16;
+        }
+      }
+      jj_consume_token(LLAVE_CIERRE);
+    } catch (ParseException e) {
+            Token t;
+            errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
+            System.out.println("");
+            do {
+                t = getNextToken();
+            }
+            while (t.kind != VOID && t!=null && t.kind != EOF && t.kind != SWITCH && t.kind != PARENTESIS_APERTURA
+            && t.kind != NOMBREVAR && t.kind != LLAVE_APERTURA && t.kind != LLAVE_CIERRE && t.kind != PARENTESIS_CIERRE
+            && t.kind != CASE && t.kind != NUMEROS && t.kind != DOS_PUNTOS && t.kind != BREAK);
+    }
   }
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -1331,6 +1434,11 @@ static void errorData(Token currentTokenVal,
     try { return !jj_3_6(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(5, xla); }
+  }
+
+  static private boolean jj_3R_23() {
+    if (jj_scan_token(PUNTO_COMA)) return true;
+    return false;
   }
 
   static private boolean jj_3R_21() {
@@ -1403,8 +1511,20 @@ static void errorData(Token currentTokenVal,
     return false;
   }
 
+  static private boolean jj_3_6() {
+    if (jj_scan_token(ELSE)) return true;
+    if (jj_scan_token(LLAVE_APERTURA)) return true;
+    return false;
+  }
+
   static private boolean jj_3R_22() {
     if (jj_3R_24()) return true;
+    return false;
+  }
+
+  static private boolean jj_3_5() {
+    if (jj_scan_token(ELSE)) return true;
+    if (jj_scan_token(IF)) return true;
     return false;
   }
 
@@ -1443,30 +1563,13 @@ static void errorData(Token currentTokenVal,
     return false;
   }
 
-  static private boolean jj_3R_23() {
-    if (jj_scan_token(PUNTO_COMA)) return true;
-    return false;
-  }
-
   static private boolean jj_3_3() {
     if (jj_3R_20()) return true;
     return false;
   }
 
-  static private boolean jj_3_6() {
-    if (jj_scan_token(ELSE)) return true;
-    if (jj_scan_token(LLAVE_APERTURA)) return true;
-    return false;
-  }
-
   static private boolean jj_3_2() {
     if (jj_3R_19()) return true;
-    return false;
-  }
-
-  static private boolean jj_3_5() {
-    if (jj_scan_token(ELSE)) return true;
-    if (jj_scan_token(IF)) return true;
     return false;
   }
 
