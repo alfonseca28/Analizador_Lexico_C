@@ -2,5 +2,6 @@
 /shelf/
 /workspace.xml
 
+#Extensiones a ignorar
 *.java
 *.class
