@@ -20,9 +20,9 @@ public class Analizador_Lexico {
         //el o los parser generados por javacc y declarados en el archivo compilado de la gramatica
 
         //PARA EJECUTAR EN WINDOWS DESCOMENTAR LA LINEA DE CODIGO SIGUIENTE Y SIGUIENDO ESE MISMO FORMATO, ESCRIBIR LA RUTA DONDE SE ENCUENTRE EL ARCHIVO DE PRUEBA
-        //Prueba_c = new File("D:\\NetBeansProjects\\Analizador_Lexico_c\\src\\Principal\\Prueba_c.txt");
+        Prueba_c = new File("D:\\NetBeansProjects\\Analizador_Lexico_c\\src\\Principal\\Prueba_c.txt");
         //PARA EJECUTAR EN LINUX DESCOMENTAR LA LINEA DE CODIGO SIGUIENTE Y SIGUIENDO ESE MISMO FORMATO, ESCRIBIR LA RUTA DONDE SE ENCUENTRE EL ARCHIVO DE PRUEBA
-        Prueba_c = new File("/home/alfonseca/IdeaProjects/Analizador_Lexico_C/src/Principal/Prueba_c.txt");
+        //Prueba_c = new File("/home/alfonseca/IdeaProjects/Analizador_Lexico_C/src/Principal/Prueba_c.txt");
         //objeto de tipo file, con la ruta que contiene el archivo de prueba para analizar
         try {
             GramaticaTokenManager Gramatica_c = new GramaticaTokenManager(new SimpleCharStream(new FileReader(Prueba_c)));
