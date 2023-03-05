@@ -2,26 +2,24 @@
 #include <stdlib.h>
 
 main(){
-    int a;
-    int a,j,;
+    int f = 25;     //me acepta esta madre, no deberia de ser asi xd
+    int a,j;
     int u = 9;
-    int a = 98, h = 33;
+    int a = 98; 
+    int h = 33;     //aqui me detecta error, esto no deberia de pasar porque antes debe de ir el tipo de variable
 
     int i;
 
     for(i = 0; i< 5;i++){
-        printf("Hola amigos que hacen");
+        printf("Hola amigos que hacen");    //al quitarle las comillas simple me detecta el error, pero ya no continua
     }
 
-
     switch(h){
-        case 1: printf("xdd");
+        case 1: printf("xdd");  //si le quito la f al printf me dice que deberia esperar un =
             break;
         case 2: printf("caso2");
             break;
     }
 
-
     float decimal = 108;
-
 }
