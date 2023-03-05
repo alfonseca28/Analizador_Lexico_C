@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 main(){
-    int f = 25;     //me acepta esta madre, no deberia de ser asi xd
-    int a,j;
+    int f = 25;     //me acepta el int 25; esta madre no deberia de ser asi xd falta el nombre de la variable
+    int a, j;
     int u = 9;
     int a = 98; 
     int h = 33;     //aqui me detecta error, esto no deberia de pasar porque antes debe de ir el tipo de variable
@@ -18,7 +18,7 @@ main(){
         case 1: printf("xdd");  //si le quito la f al printf me dice que deberia esperar un =
             break;
         case 2: printf("caso2");
-            break;
+            break    //si comento el break si jala, al igual que si le quito el ;
     }
 
     float decimal = 108;
