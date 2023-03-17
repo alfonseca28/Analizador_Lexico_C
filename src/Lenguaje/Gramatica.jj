@@ -330,7 +330,11 @@ TOKEN: {
 //NUMEROS
 TOKEN: {    
     <NUMEROS:(["0"-"9"])+>{System.out.println("NUMEROS -> " + image + "\n");}
+<<<<<<< HEAD
     |<DECIMALES: (["0" - "9"])+ ("."(["0" - "9"])+)?>  
+=======
+    //|<DECIMALES: (["0" - "9"])+((.)(["0" - "9"])+)*>
+>>>>>>> cba558d85c62231e9830dd2f369c975aff8569a0
 }
 
 //NOMBRE PARA LIBRERIAS
