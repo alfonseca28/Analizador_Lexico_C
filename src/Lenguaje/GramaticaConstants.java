@@ -113,7 +113,9 @@ public interface GramaticaConstants {
   /** RegularExpression Id. */
   int NUMEROS = 58;
   /** RegularExpression Id. */
-  int NOMLIBRERIA = 59;
+  int DECIMALES = 59;
+  /** RegularExpression Id. */
+  int NOMLIBRERIA = 60;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -179,6 +181,7 @@ public interface GramaticaConstants {
     "<NOMBREVAR>",
     "<CADENA>",
     "<NUMEROS>",
+    "<DECIMALES>",
     "<NOMLIBRERIA>",
   };
 

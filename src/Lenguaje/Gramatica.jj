@@ -10,19 +10,20 @@ import java.io.*;
 
 class Gramatica{
 
-    static ArrayList<String> nombreVariable = new ArrayList<String>(); 
-    static ArrayList<String> tipoDato = new ArrayList<String>(); 
-    static ArrayList<String> valorAlmacenado = new ArrayList<String>(); 
-    static ArrayList<String> erroresLexicos = new ArrayList<String>(); 
-    static ArrayList<String> erroresSintacticos = new ArrayList<String>(); 
-    static ArrayList<String> erroresSemanticos = new ArrayList<String>(); 
+static ArrayList<String> nombreVariable = new ArrayList<String>();
+    static ArrayList<String> tipoDato = new ArrayList<String>();
+    static ArrayList<String> valorAlmacenado = new ArrayList<String>();
+    static ArrayList<String> erroresLexicos = new ArrayList<String>();
+    static ArrayList<String> erroresSintacticos = new ArrayList<String>();
+    static ArrayList<String> erroresSemanticos = new ArrayList<String>();
     static ArrayList<String> colaOperacion = new ArrayList<String>();
+
 
     static String nombreV ="";
     static String tipoD ="";
     static String valorV="nulo";
     static boolean ident = false;
-    static boolean decAritmetica = false;   
+    static boolean decAritmetica = false;
     static boolean asignacion_a = false;
     
     public static void main(String[] args )  throws FileNotFoundException {
@@ -36,6 +37,18 @@ class Gramatica{
     BufferedReader buffer = new BufferedReader (file);
     Gramatica analizador = new Gramatica (buffer);
         inicio(str,file,buffer,analizador);
+        System.out.println("Nombres de variables");
+            for(String dato : nombreVariable){
+                System.out.println("nombre ->"+dato);
+            }
+            System.out.println("Tipos de dato de variables");
+            for(String dato : tipoDato){
+                System.out.println("td -> "+dato);
+            }
+            System.out.println("Valor almacenado en las variables");
+            for(String dato : valorAlmacenado){
+                System.out.println("va -> " +dato);
+            }
     }
 
 
@@ -52,6 +65,7 @@ class Gramatica{
     
         if(erroresLexicos.isEmpty() && erroresSintacticos.isEmpty() && erroresSemanticos.isEmpty()){
             System.out.println("Ejecucion finalizada sin errores");
+            
         }
         else{
         
@@ -86,15 +100,19 @@ class Gramatica{
             if(!erroresSemanticos.isEmpty()){
     
                 System.out.println("");
-                if(erroresSemanticos.size()==1) System.out.println("Se ha encontrado " +erroresSemanticos.size() + " error semantico");
-                else System.out.println("Se han encontrado " +erroresSemanticos.size() + " errores semanticos");
+                if(erroresSemanticos.size()==1) 
+                    System.out.println("Se ha encontrado " +erroresSemanticos.size() + " error semantico");
+                else 
+                    System.out.println("Se han encontrado " +erroresSemanticos.size() + " errores semanticos");
 
                 System.out.println(""); 
 
                 for (String impresion: erroresSemanticos) {
                     System.out.println(impresion);
                 }   
-            } 
+            }
+
+            
         }
     }
 
@@ -312,7 +330,7 @@ TOKEN: {
 //NUMEROS
 TOKEN: {    
     <NUMEROS:(["0"-"9"])+>{System.out.println("NUMEROS -> " + image + "\n");}
-    |<DECIMALES: (["0" - "9"])+((.)(["0" - "9"])+)*>  
+    |<DECIMALES: (["0" - "9"])+ ("."(["0" - "9"])+)?>  
 }
 
 //NOMBRE PARA LIBRERIAS
@@ -376,10 +394,13 @@ void Declaraciones():{}{
 }
 //-----------------------------------------------------------------------------------------------------------------
 
-void declaracionSimple():{}{
+void declaracionSimple():{
+    String tipo;
+}
+{
     try{
         //TIPO DE DATO
-        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR>delimiter()
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>){guardarTipoDato();}<NOMBREVAR>{guardarNombreV();}delimiter()
     }catch(ParseException e){
         Token t;
         errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
@@ -398,7 +419,7 @@ void declaracionSimple():{}{
 void declaracionConValor():{}{
     try{
         //TIPO DE DATO
-        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR><ASIGNAR>
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>){guardarTipoDato();}<NOMBREVAR>{guardarNombreV();}<ASIGNAR>
     }catch(ParseException e){
         Token t;
         errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
@@ -411,7 +432,7 @@ void declaracionConValor():{}{
     }
 
     try{
-        (<NUMEROS>|<CADENA>|<NOMBREVAR>)
+        (<NUMEROS>|<CADENA>|<NOMBREVAR>){guardarValorV();}
     }
     catch(ParseException e){
         Token t;
@@ -432,7 +453,7 @@ void declaracionConValor():{}{
 void declaracionMultipleSimple() : {}{
     try{
         //TIPO DE DATO
-        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR>(<COMA><NOMBREVAR>)*delimiter()
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)<NOMBREVAR>{guardarNombreV();}(<COMA><NOMBREVAR>{guardarNombreV();})*delimiter()
     }catch(ParseException e){
         Token t;
         errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
@@ -451,7 +472,7 @@ void declaracionMultipleSimple() : {}{
 void declaracionMultipleConValor() : {}{
     try{
         //TIPO DE DATO
-        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>)
+        (<INT>|<FLOAT>|<CHAR>|<SHORT>|<STRING>|<DOUBLE>|<VOID>|<BOOLEAN>){guardarTipoDato();}
     }catch(ParseException e){
         Token t;
         errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
@@ -464,7 +485,7 @@ void declaracionMultipleConValor() : {}{
     }
 
     try{
-        <NOMBREVAR><ASIGNAR>(<NUMEROS>|<CADENA>|<NOMBREVAR>)(<COMA><NOMBREVAR><ASIGNAR>(<NUMEROS>|<CADENA>|<NOMBREVAR>))*
+        <NOMBREVAR>{guardarNombreV();}<ASIGNAR>(<NUMEROS>|<CADENA>|<NOMBREVAR>){guardarValorV();}(<COMA><NOMBREVAR>{guardarNombreV();}<ASIGNAR>(<NUMEROS>|<CADENA>|<NOMBREVAR>){guardarValorV();})*
     }
     catch(ParseException e){
         Token t;
@@ -521,7 +542,7 @@ void declaracionMultipleConValor() : {}{
 
     //INCREMENTAR O DECREMENTAR
 void incrementoDecremento():{}{
-    //OPERANDO}
+    //OPERANDO
     try{
         (<NOMBREVAR>)
     }catch(ParseException e){
@@ -782,3 +803,38 @@ void delimiter() :{}{
         } while (t.kind != PUNTO_COMA && t!=null && t.kind != EOF );
     }
     }
+
+
+
+
+
+
+
+    //_____________________________________________________________________________________________________________
+    JAVACODE
+
+    public void guardarNombreV(){
+        nombreV=token.image;
+        //System.out.println(nombreV);
+        if(nombreVariable.contains(nombreV)){
+            erroresSemanticos.add("error");
+        }
+        nombreVariable.add(nombreV);
+    }
+
+    JAVACODE
+
+    public void guardarTipoDato(){
+        tipoD=token.image;        
+        tipoDato.add(tipoD);
+        //System.out.println(tipoD);
+    }
+
+    JAVACODE
+
+    public void guardarValorV(){
+        valorV=token.image;
+        valorAlmacenado.add(valorV);     
+        //System.out.println(valorV);   
+    }
+

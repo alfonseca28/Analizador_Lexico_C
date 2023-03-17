@@ -5,13 +5,14 @@ import java.io.*;
 
 class Gramatica implements GramaticaConstants {
 
-    static ArrayList<String> nombreVariable = new ArrayList<String>();
+static ArrayList<String> nombreVariable = new ArrayList<String>();
     static ArrayList<String> tipoDato = new ArrayList<String>();
     static ArrayList<String> valorAlmacenado = new ArrayList<String>();
     static ArrayList<String> erroresLexicos = new ArrayList<String>();
     static ArrayList<String> erroresSintacticos = new ArrayList<String>();
     static ArrayList<String> erroresSemanticos = new ArrayList<String>();
     static ArrayList<String> colaOperacion = new ArrayList<String>();
+
 
     static String nombreV ="";
     static String tipoD ="";
@@ -31,6 +32,18 @@ class Gramatica implements GramaticaConstants {
     BufferedReader buffer = new BufferedReader (file);
     Gramatica analizador = new Gramatica (buffer);
         inicio(str,file,buffer,analizador);
+        System.out.println("Nombres de variables");
+            for(String dato : nombreVariable){
+                System.out.println("nombre ->"+dato);
+            }
+            System.out.println("Tipos de dato de variables");
+            for(String dato : tipoDato){
+                System.out.println("td -> "+dato);
+            }
+            System.out.println("Valor almacenado en las variables");
+            for(String dato : valorAlmacenado){
+                System.out.println("va -> " +dato);
+            }
     }
 
 
@@ -47,6 +60,7 @@ class Gramatica implements GramaticaConstants {
 
         if(erroresLexicos.isEmpty() && erroresSintacticos.isEmpty() && erroresSemanticos.isEmpty()){
             System.out.println("Ejecucion finalizada sin errores");
+
         }
         else{
 
@@ -81,8 +95,10 @@ class Gramatica implements GramaticaConstants {
             if(!erroresSemanticos.isEmpty()){
 
                 System.out.println("");
-                if(erroresSemanticos.size()==1) System.out.println("Se ha encontrado " +erroresSemanticos.size() + " error semantico");
-                else System.out.println("Se han encontrado " +erroresSemanticos.size() + " errores semanticos");
+                if(erroresSemanticos.size()==1)
+                    System.out.println("Se ha encontrado " +erroresSemanticos.size() + " error semantico");
+                else
+                    System.out.println("Se han encontrado " +erroresSemanticos.size() + " errores semanticos");
 
                 System.out.println("");
 
@@ -90,6 +106,8 @@ class Gramatica implements GramaticaConstants {
                     System.out.println(impresion);
                 }
             }
+
+
         }
     }
 
@@ -329,6 +347,7 @@ static void errorData(Token currentTokenVal,
 
 //-----------------------------------------------------------------------------------------------------------------
   static final public void declaracionSimple() throws ParseException {
+    String tipo;
     try {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case INT:
@@ -360,7 +379,9 @@ static void errorData(Token currentTokenVal,
         jj_consume_token(-1);
         throw new ParseException();
       }
+                                                                          guardarTipoDato();
       jj_consume_token(NOMBREVAR);
+                                                                                                         guardarNombreV();
       delimiter();
     } catch (ParseException e) {
         Token t;
@@ -407,7 +428,9 @@ static void errorData(Token currentTokenVal,
         jj_consume_token(-1);
         throw new ParseException();
       }
+                                                                          guardarTipoDato();
       jj_consume_token(NOMBREVAR);
+                                                                                                         guardarNombreV();
       jj_consume_token(ASIGNAR);
     } catch (ParseException e) {
         Token t;
@@ -435,6 +458,7 @@ static void errorData(Token currentTokenVal,
         jj_consume_token(-1);
         throw new ParseException();
       }
+                                         guardarValorV();
     } catch (ParseException e) {
         Token t;
         errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
@@ -482,6 +506,7 @@ static void errorData(Token currentTokenVal,
         throw new ParseException();
       }
       jj_consume_token(NOMBREVAR);
+                                                                                     guardarNombreV();
       label_3:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -494,6 +519,7 @@ static void errorData(Token currentTokenVal,
         }
         jj_consume_token(COMA);
         jj_consume_token(NOMBREVAR);
+                                                                                                                          guardarNombreV();
       }
       delimiter();
     } catch (ParseException e) {
@@ -541,6 +567,7 @@ static void errorData(Token currentTokenVal,
         jj_consume_token(-1);
         throw new ParseException();
       }
+                                                                          guardarTipoDato();
     } catch (ParseException e) {
         Token t;
         errorData(e.currentToken,e.expectedTokenSequences,e.tokenImage);
@@ -553,6 +580,7 @@ static void errorData(Token currentTokenVal,
     }
     try {
       jj_consume_token(NOMBREVAR);
+                    guardarNombreV();
       jj_consume_token(ASIGNAR);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case NUMEROS:
@@ -569,6 +597,7 @@ static void errorData(Token currentTokenVal,
         jj_consume_token(-1);
         throw new ParseException();
       }
+                                                                                guardarValorV();
       label_4:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -581,6 +610,7 @@ static void errorData(Token currentTokenVal,
         }
         jj_consume_token(COMA);
         jj_consume_token(NOMBREVAR);
+                                                                                                                    guardarNombreV();
         jj_consume_token(ASIGNAR);
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case NUMEROS:
@@ -597,6 +627,7 @@ static void errorData(Token currentTokenVal,
           jj_consume_token(-1);
           throw new ParseException();
         }
+                                                                                                                                                                                guardarValorV();
       }
     } catch (ParseException e) {
         Token t;
@@ -1394,6 +1425,26 @@ static void errorData(Token currentTokenVal,
     }
   }
 
+  static public void guardarNombreV() throws ParseException {
+        nombreV=token.image;
+        //System.out.println(nombreV);
+
+        if(nombreVariable.contains(nombreV)){
+            erroresSemanticos.add("error");
+        }
+        nombreVariable.add(nombreV);
+  }
+
+  static public void guardarTipoDato() throws ParseException {
+        tipoD=token.image;
+        tipoDato.add(tipoD);
+  }
+
+  static public void guardarValorV() throws ParseException {
+        valorV=token.image;
+        valorAlmacenado.add(valorV);
+  }
+
   static private boolean jj_2_1(int xla) {
     jj_la = xla; jj_lastpos = jj_scanpos = token;
     try { return !jj_3_1(); }
@@ -1434,6 +1485,40 @@ static void errorData(Token currentTokenVal,
     try { return !jj_3_6(); }
     catch(LookaheadSuccess ls) { return true; }
     finally { jj_save(5, xla); }
+  }
+
+  static private boolean jj_3R_24() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(10)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(11)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(12)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(14)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(15)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(16)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(17)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(13)) return true;
+    }
+    }
+    }
+    }
+    }
+    }
+    }
+    if (jj_scan_token(NOMBREVAR)) return true;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_25()) { jj_scanpos = xsp; break; }
+    }
+    if (jj_3R_23()) return true;
+    return false;
   }
 
   static private boolean jj_3R_23() {
@@ -1506,19 +1591,9 @@ static void errorData(Token currentTokenVal,
     return false;
   }
 
-  static private boolean jj_3R_25() {
-    if (jj_scan_token(COMA)) return true;
-    return false;
-  }
-
   static private boolean jj_3_6() {
     if (jj_scan_token(ELSE)) return true;
     if (jj_scan_token(LLAVE_APERTURA)) return true;
-    return false;
-  }
-
-  static private boolean jj_3R_22() {
-    if (jj_3R_24()) return true;
     return false;
   }
 
@@ -1558,6 +1633,16 @@ static void errorData(Token currentTokenVal,
     return false;
   }
 
+  static private boolean jj_3R_25() {
+    if (jj_scan_token(COMA)) return true;
+    return false;
+  }
+
+  static private boolean jj_3R_22() {
+    if (jj_3R_24()) return true;
+    return false;
+  }
+
   static private boolean jj_3_4() {
     if (jj_3R_21()) return true;
     return false;
@@ -1586,40 +1671,6 @@ static void errorData(Token currentTokenVal,
     }
     }
     }
-    return false;
-  }
-
-  static private boolean jj_3R_24() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(10)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(11)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(12)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(14)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(15)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(16)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(17)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(13)) return true;
-    }
-    }
-    }
-    }
-    }
-    }
-    }
-    if (jj_scan_token(NOMBREVAR)) return true;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_25()) { jj_scanpos = xsp; break; }
-    }
-    if (jj_3R_23()) return true;
     return false;
   }
 
@@ -1859,7 +1910,7 @@ static void errorData(Token currentTokenVal,
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[60];
+    boolean[] la1tokens = new boolean[61];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -1876,7 +1927,7 @@ static void errorData(Token currentTokenVal,
         }
       }
     }
-    for (int i = 0; i < 60; i++) {
+    for (int i = 0; i < 61; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

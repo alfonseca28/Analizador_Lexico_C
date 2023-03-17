@@ -3,9 +3,8 @@
 
 main(){
     int a;
-    int a,j,;
+    int a,j;
     int u = 9;
-    int a = 98, h = 33;
 
     int i;
 
