@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    float num, sum = 0, prom;
+    
+    printf("Ingrese la cantidad de numeros que desea promediar: ");
+    scanf("%d", &n);
+    
+    for (i = 1; i <= n; i++) {
+        printf("Ingrese el numero %d: ", i);
+        scanf("%f", &num);
+        sum += num;
+    }
+    
+    prom = sum / n;
+    
+    printf("El promedio de los %d numeros ingresados es: %.2f", n, prom);
+    
+    return 0;
+}

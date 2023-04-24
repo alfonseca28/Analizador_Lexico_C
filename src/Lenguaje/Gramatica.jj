@@ -6,6 +6,8 @@ PARSER_BEGIN(Gramatica)
 
 import java.util.*;
 import java.io.*;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 
 class Gramatica{
@@ -13,6 +15,9 @@ class Gramatica{
 static ArrayList<String> nombreVariable = new ArrayList<String>();
     static ArrayList<String> tipoDato = new ArrayList<String>();
     static ArrayList<String> valorAlmacenado = new ArrayList<String>();
+
+    static ArrayList<Integer> finCiclo = new ArrayList<Integer>();
+
     static ArrayList<String> erroresLexicos = new ArrayList<String>();
     static ArrayList<String> erroresSintacticos = new ArrayList<String>();
     static ArrayList<String> erroresSemanticos = new ArrayList<String>();
@@ -25,6 +30,8 @@ static ArrayList<String> nombreVariable = new ArrayList<String>();
     static boolean ident = false;
     static boolean decAritmetica = false;
     static boolean asignacion_a = false;
+
+    static String cod = "";
     
     public static void main(String[] args )  throws FileNotFoundException {
         
@@ -33,10 +40,16 @@ static ArrayList<String> nombreVariable = new ArrayList<String>();
     String str = entrada.next();
     
     str+= ".txt";
+
+    File fichero3 = new File(cod+"_generacion_intermedia.txt");
+
+    if(fichero3.delete())System.out.println("");
+
     FileReader file = new FileReader(str);
     BufferedReader buffer = new BufferedReader (file);
     Gramatica analizador = new Gramatica (buffer);
         inicio(str,file,buffer,analizador);
+
         System.out.println("Nombres de variables");
             for(String dato : nombreVariable){
                 System.out.println("nombre ->"+dato);
@@ -111,7 +124,6 @@ static ArrayList<String> nombreVariable = new ArrayList<String>();
                     System.out.println(impresion);
                 }   
             }
-
             
         }
     }
@@ -330,11 +342,11 @@ TOKEN: {
 //NUMEROS
 TOKEN: {    
     <NUMEROS:(["0"-"9"])+>{System.out.println("NUMEROS -> " + image + "\n");}
-<<<<<<< HEAD
+
     |<DECIMALES: (["0" - "9"])+ ("."(["0" - "9"])+)?>  
-=======
+
     //|<DECIMALES: (["0" - "9"])+((.)(["0" - "9"])+)*>
->>>>>>> cba558d85c62231e9830dd2f369c975aff8569a0
+
 }
 
 //NOMBRE PARA LIBRERIAS
